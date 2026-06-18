@@ -1,0 +1,16 @@
+/* Tailwind(CDN) 위에 얹는 최소한의 커스텀 스타일 */
+
+html { scroll-behavior: smooth; }
+
+/* 숫자 입력창의 위/아래 화살표 정리 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.4;
+}
+
+/* 모드 버튼 기본(비활성) 상태 */
+.mode-btn { color: #475569; transition: all 0.15s; }
+.mode-btn:hover { color: #1e293b; }
+
+/* 티커 입력 대문자 표시 */
+.ticker-input { text-transform: uppercase; }

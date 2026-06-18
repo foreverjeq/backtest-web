@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>백테스트 지표 완벽 가이드 - CAGR·MDD·샤프지수 쉽게 이해하기 | BacktestLab</title>
+  <meta name="description" content="백테스트가 무엇인지, CAGR·MDD·샤프지수·변동성·소르티노·칼마 지수가 각각 무슨 뜻이고 어떻게 해석하는지 투자 초보자도 이해할 수 있게 자세히 설명합니다." />
+  <meta name="keywords" content="백테스트란, CAGR 뜻, MDD 뜻, 샤프지수 해석, 변동성, 소르티노 지수, 칼마 지수, 거치식 적립식 차이, 리밸런싱" />
+  <meta property="og:title" content="백테스트 지표 완벽 가이드 - BacktestLab" />
+  <meta property="og:description" content="CAGR·MDD·샤프지수를 투자 초보자도 이해할 수 있게 설명합니다." />
+  <link rel="canonical" href="https://example.com/guide.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 BacktestLab</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="text-blue-700 font-semibold">지표 가이드</a>
+        <a href="about.html" class="hover:text-blue-700">소개</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <article class="prose-custom">
+      <h1 class="text-3xl font-bold mb-3">백테스트 지표 완벽 가이드</h1>
+      <p class="text-slate-600 mb-8">
+        백테스트 결과에는 CAGR, MDD, 샤프지수 같은 낯선 용어가 많이 등장합니다. 이 가이드에서는 각 지표가
+        무엇을 의미하고 어떻게 해석해야 하는지, 투자를 처음 시작하는 분도 이해할 수 있도록 차근차근 설명합니다.
+        지표를 제대로 이해하면 단순히 "수익률이 높다"를 넘어 "위험 대비 효율이 좋은 전략인가"를 판단할 수 있게 됩니다.
+      </p>
+
+      <!-- 목차 -->
+      <nav class="bg-white border border-slate-200 rounded-xl p-5 mb-8 text-sm">
+        <p class="font-bold mb-2">목차</p>
+        <ul class="space-y-1 text-blue-600">
+          <li><a href="#what">1. 백테스트란 무엇인가</a></li>
+          <li><a href="#return">2. 수익률 지표 (총수익률·CAGR)</a></li>
+          <li><a href="#risk">3. 위험 지표 (MDD·변동성)</a></li>
+          <li><a href="#efficiency">4. 효율성 지표 (샤프·소르티노·칼마)</a></li>
+          <li><a href="#etc">5. 기타 지표 (승률·낙폭기간)</a></li>
+          <li><a href="#method">6. 거치식 vs 적립식 vs 혼합</a></li>
+          <li><a href="#option">7. 배당 재투자와 리밸런싱</a></li>
+        </ul>
+      </nav>
+
+      <section id="what" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">1. 백테스트란 무엇인가</h2>
+        <p class="mb-3 leading-relaxed">
+          백테스트(Backtest)란 "만약 과거에 이 방식으로 투자했다면 결과가 어땠을까?"를 실제 과거 데이터로
+          되돌려 검증하는 과정입니다. 예를 들어 "2015년부터 SPY에 매달 50만 원씩 적립했다면 지금 얼마가 되었을까?"
+          같은 질문에 구체적인 숫자로 답할 수 있습니다. 실제 돈을 넣기 전에 전략의 수익성과 위험을 미리 가늠해 볼 수 있어
+          투자 의사결정의 든든한 근거가 됩니다.
+        </p>
+        <p class="mb-3 leading-relaxed">
+          다만 백테스트에는 분명한 한계가 있습니다. <strong>과거의 성과가 미래의 수익을 보장하지 않습니다.</strong>
+          시장 환경, 금리, 산업 구조는 끊임없이 변하기 때문입니다. 또한 백테스트는 세금, 거래 수수료, 매수·매도 시점의
+          미세한 차이 등을 단순화하는 경우가 많습니다. 따라서 백테스트 결과는 "정답"이 아니라 "참고를 위한 시나리오"로
+          받아들이는 태도가 중요합니다. 여러 기간과 여러 종목 조합으로 반복해서 검증해 보면, 특정 시점의 운에 휘둘리지 않는
+          더 신뢰할 만한 통찰을 얻을 수 있습니다.
+        </p>
+      </section>
+
+      <section id="return" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">2. 수익률 지표</h2>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">총수익률 (Total Return)</h3>
+        <p class="mb-3 leading-relaxed">
+          총수익률은 투자 기간 전체 동안 원금이 얼마나 불어났는지를 나타내는 가장 직관적인 지표입니다.
+          예를 들어 1,000만 원을 투자해서 최종 자산이 2,470만 원이 되었다면 총수익률은 +147%입니다.
+          계산식은 (최종 자산 − 투자 원금) ÷ 투자 원금이며, 여기에는 주가 상승분뿐 아니라 받은 배당금까지 포함됩니다.
+          다만 총수익률만으로는 "10년에 걸쳐 147%"인지 "2년 만에 147%"인지 구분할 수 없기 때문에, 기간을 고려한
+          CAGR과 함께 보아야 정확한 판단이 가능합니다.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">CAGR (연평균 복리 수익률)</h3>
+        <p class="mb-3 leading-relaxed">
+          CAGR(Compound Annual Growth Rate)은 투자 기간을 연 단위로 환산했을 때 매년 평균 몇 %씩 복리로
+          성장했는지를 보여 주는 지표입니다. 기간이 다른 투자를 공정하게 비교할 수 있게 해 주기 때문에 가장 중요한
+          수익률 지표로 꼽힙니다. 예를 들어 10년 동안 총 147% 수익이 났다면 CAGR은 약 9.5%인데, 이는 "매년 9.5%씩
+          꾸준히 복리로 불어난 것과 같은 효과"라는 뜻입니다.
+        </p>
+        <p class="mb-3 leading-relaxed">
+          일반적으로 미국 S&P500 지수의 장기 CAGR이 연 7~10% 수준이라는 점을 기준으로 삼으면 해석이 쉽습니다.
+          본 사이트에서는 적립식 투자의 경우 매달 새로 넣는 돈이 수익으로 잘못 계산되는 왜곡을 막기 위해
+          <strong>시간가중수익률(TWR)</strong> 방식으로 CAGR을 계산합니다. 덕분에 거치식과 적립식의 순수한 투자 성과를
+          같은 잣대로 비교할 수 있습니다.
+        </p>
+      </section>
+
+      <section id="risk" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">3. 위험 지표</h2>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">MDD (최대 낙폭)</h3>
+        <p class="mb-3 leading-relaxed">
+          MDD(Maximum Drawdown)는 투자 기간 중 자산이 고점 대비 최대로 얼마나 떨어졌는지를 나타냅니다.
+          예를 들어 자산이 1억 원까지 올랐다가 6천만 원까지 떨어진 적이 있다면 MDD는 −40%입니다. MDD는 "내가 이 전략을
+          실제로 버틸 수 있는가"를 판단하는 가장 현실적인 지표입니다. 수익률이 아무리 좋아도 MDD가 −50%라면, 대부분의
+          투자자는 그 하락 구간을 버티지 못하고 바닥에서 팔아 버리기 쉽기 때문입니다.
+        </p>
+        <p class="mb-3 leading-relaxed">
+          따라서 MDD는 자신의 위험 감내 수준과 반드시 함께 고려해야 합니다. 일반적으로 −20% 이내는 비교적 안정적,
+          −20~−35%는 중위험, −35% 이하는 고위험으로 볼 수 있습니다. MDD가 큰 전략일수록 장기 보유 의지와 멘탈 관리,
+          그리고 충분히 긴 투자 기간이 필요합니다.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">변동성 (Volatility)</h3>
+        <p class="mb-3 leading-relaxed">
+          변동성은 수익률이 평균에서 얼마나 출렁이는지를 표준편차로 측정한 값으로, 보통 연 단위(%)로 표시합니다.
+          변동성이 높을수록 가격이 위아래로 크게 흔들린다는 뜻이며, 같은 수익률이라면 변동성이 낮은 쪽이 더 편안한
+          투자입니다. 예를 들어 연 변동성 10%인 자산은 비교적 잔잔하게 움직이는 반면, 25% 이상이면 가격 등락이 상당히
+          심한 편입니다. 변동성 자체가 나쁜 것은 아니지만, 본인의 심리적 안정과 직결되므로 반드시 확인할 가치가 있습니다.
+        </p>
+      </section>
+
+      <section id="efficiency" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">4. 효율성 지표</h2>
+        <p class="mb-3 leading-relaxed">
+          효율성 지표는 "감수한 위험에 비해 수익이 충분했는가"를 측정합니다. 수익률만 보면 위험을 무시하게 되는데,
+          이 지표들은 위험과 수익을 함께 저울질해 전략의 "가성비"를 알려 줍니다.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">샤프지수 (Sharpe Ratio)</h3>
+        <p class="mb-3 leading-relaxed">
+          샤프지수는 (수익률 − 무위험수익률) ÷ 변동성으로 계산하며, 위험 한 단위당 얼마의 초과 수익을 얻었는지를
+          나타냅니다. 값이 클수록 효율적인 투자입니다. 일반적으로 0.5 미만은 미흡, 0.5~1.0은 보통, 1.0~1.5는 우수,
+          1.5 이상은 탁월한 수준으로 해석합니다. 두 전략의 수익률이 비슷하다면, 샤프지수가 높은 쪽이 같은 수익을 더 적은
+          위험으로 달성한 더 나은 전략이라고 볼 수 있습니다.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">소르티노 지수 (Sortino Ratio)</h3>
+        <p class="mb-3 leading-relaxed">
+          소르티노 지수는 샤프지수의 사촌 격으로, 변동성 중에서도 "하락 변동성"만을 위험으로 봅니다. 투자자가 실제로
+          싫어하는 것은 가격이 오를 때의 출렁임이 아니라 떨어질 때의 손실이기 때문입니다. 상승 변동성은 오히려 반가운
+          일이므로, 이를 위험에서 제외하고 하락 위험 대비 수익만 측정합니다. 따라서 소르티노 지수는 손실 위험을 더 정교하게
+          반영한 지표라고 할 수 있으며, 보통 샤프지수보다 다소 높게 나옵니다.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-5 mb-2">칼마 지수 (Calmar Ratio)</h3>
+        <p class="mb-3 leading-relaxed">
+          칼마 지수는 CAGR을 MDD(최대 낙폭)로 나눈 값으로, "최악의 하락을 감수한 대가로 얼마의 연 수익을 얻었는가"를
+          보여 줍니다. 예를 들어 CAGR 10%에 MDD가 −20%라면 칼마 지수는 0.5입니다. 값이 1에 가깝거나 그 이상이면 큰 하락
+          위험 대비 수익이 매우 우수한 전략으로 평가합니다. 특히 하락장을 견디는 능력을 중시하는 투자자에게 유용한 지표입니다.
+        </p>
+      </section>
+
+      <section id="etc" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">5. 기타 지표</h2>
+        <h3 class="text-xl font-semibold mt-5 mb-2">월 승률 (Win Rate)</h3>
+        <p class="mb-3 leading-relaxed">
+          전체 투자 기간 중 수익이 난 달의 비율입니다. 승률이 60%라면 10달 중 6달은 플러스였다는 뜻입니다. 승률이 높으면
+          심리적으로 꾸준히 투자를 이어 가기 수월하지만, 승률이 높다고 반드시 총수익이 큰 것은 아닙니다. 한 번의 큰 상승이
+          여러 번의 작은 하락을 압도하는 경우도 많기 때문입니다.
+        </p>
+        <h3 class="text-xl font-semibold mt-5 mb-2">최장 낙폭 기간</h3>
+        <p class="mb-3 leading-relaxed">
+          고점을 회복하지 못한 채 손실 구간에 머문 가장 긴 기간을 개월 수로 나타냅니다. 이 값이 길수록 "원금을 회복하기까지
+          오래 기다려야 했다"는 뜻이며, 투자자의 인내심을 시험하는 지표입니다. 수익률이 좋아도 이 기간이 수년에 달한다면,
+          그 기다림을 버틸 수 있을지 미리 생각해 봐야 합니다.
+        </p>
+      </section>
+
+      <section id="method" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">6. 거치식 vs 적립식 vs 혼합</h2>
+        <p class="mb-3 leading-relaxed">
+          <strong>거치식</strong>은 처음에 목돈을 한 번에 투자하고 그대로 두는 방식입니다. 시장이 장기적으로 우상향한다면
+          돈이 시장에 오래 머물수록 유리하므로, 일반적으로 기대 수익이 가장 높습니다. 다만 투자 직후 큰 하락이 오면 타격도
+          그만큼 큽니다.
+        </p>
+        <p class="mb-3 leading-relaxed">
+          <strong>적립식</strong>은 매달(또는 매분기·매년) 일정 금액을 꾸준히 나누어 투자하는 방식입니다. 가격이 쌀 때 더
+          많이, 비쌀 때 더 적게 사게 되는 "분할 매수 효과(달러 코스트 애버리징)" 덕분에 매수 시점의 위험을 낮춰 줍니다.
+          목돈이 없는 직장인이 월급으로 투자하기에 가장 현실적인 방법입니다.
+        </p>
+        <p class="mb-3 leading-relaxed">
+          <strong>혼합</strong>은 초기 목돈과 정기 적립을 동시에 활용하는 방식으로, 거치식의 장기 복리 효과와 적립식의 시점
+          분산 효과를 함께 누리려는 전략입니다. 자신의 자금 상황에 맞게 세 가지를 비교 백테스트해 보면, 어떤 방식이 본인에게
+          맞는지 감을 잡을 수 있습니다.
+        </p>
+      </section>
+
+      <section id="option" class="mb-10">
+        <h2 class="text-2xl font-bold mb-3">7. 배당 재투자와 리밸런싱</h2>
+        <h3 class="text-xl font-semibold mt-5 mb-2">배당 재투자 (DRIP)</h3>
+        <p class="mb-3 leading-relaxed">
+          DRIP(Dividend Reinvestment Plan)은 받은 배당금을 현금으로 빼지 않고 곧바로 같은 종목을 추가 매수하는 데 쓰는
+          방식입니다. 배당금이 다시 배당을 낳는 복리 효과를 극대화하기 때문에, 장기 투자에서는 배당 재투자 여부가 최종
+          수익률에 상당한 차이를 만듭니다. 본 도구에서 이 옵션을 켜고 끄며 비교하면 복리의 위력을 직접 확인할 수 있습니다.
+        </p>
+        <h3 class="text-xl font-semibold mt-5 mb-2">리밸런싱 (Rebalancing)</h3>
+        <p class="mb-3 leading-relaxed">
+          여러 종목에 비중을 나누어 투자하면, 시간이 지나면서 잘 오른 종목의 비중이 커지고 균형이 무너집니다. 리밸런싱은
+          정해진 주기(매년·매분기)마다 원래 정한 목표 비중으로 되돌리는 작업입니다. 많이 오른 자산을 일부 팔아 덜 오른
+          자산을 사들이는 셈이라, 자연스럽게 "비싸게 팔고 싸게 사는" 효과와 위험 분산 효과를 얻습니다. 다만 너무 잦은
+          리밸런싱은 거래 비용을 늘릴 수 있으므로, 보통 연 1회 정도가 무난합니다.
+        </p>
+      </section>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-center">
+        <p class="font-semibold mb-2">이제 직접 검증해 볼 차례입니다</p>
+        <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-lg">백테스트 시작하기 →</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
+    <div class="flex justify-center gap-4 mb-2">
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+      <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+    </div>
+    © 2026 BacktestLab. All rights reserved.
+  </footer>
+</body>
+</html>

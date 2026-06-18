@@ -1,0 +1,18 @@
+# OS 부산물
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# 에디터
+.vscode/
+.idea/
+
+# 배포 도구
+.vercel/
+
+# 의존성(현재 없음, 혹시 모를 대비)
+node_modules/
+
+# 로그
+*.log
