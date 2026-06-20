@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>목표자산 역산 계산기 - 매달 얼마 투자해야 할까 | MegaMega</title>
+  <meta name="description" content="목표 금액과 기간, 예상 수익률을 넣으면 매달 얼마를 투자해야 하는지 역산합니다. 복리를 반영해 필요한 월 적립액과 일시금까지 계산합니다." />
+  <meta name="keywords" content="목표자산 계산기, 적립식 계산기, 복리 계산기, 매달 투자금액, 노후자금 계산, 목표금액 역산" />
+  <meta property="og:title" content="목표자산 역산 계산기 - MegaMega" />
+  <meta property="og:description" content="목표 금액 달성을 위해 매달 얼마를 투자해야 하는지 계산하세요." />
+  <link rel="canonical" href="https://megamega.kr/target-asset.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
+        <a href="about.html" class="hover:text-blue-700">소개</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">목표자산 역산 계산기</h1>
+    <p class="text-slate-600 mb-6 text-sm md:text-base">
+      "10년 뒤 1억을 만들려면 매달 얼마를 투자해야 할까?" 목표 금액과 기간, 예상 수익률을 입력하면
+      복리를 반영해 필요한 <strong>월 적립액</strong>과 <strong>일시금</strong>을 역산합니다.
+    </p>
+
+    <!-- 입력 -->
+    <section class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">목표 금액 (원)</label>
+          <input id="target" type="number" value="100000000" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">투자 기간 (년)</label>
+          <input id="years" type="number" value="10" min="1" max="60" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">예상 연 수익률 (%)</label>
+          <input id="rate" type="number" value="8" step="0.1" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">현재 보유 자금 (원)</label>
+          <input id="initial" type="number" value="0" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          <p class="text-xs text-slate-400 mt-1">이미 가진 종잣돈이 있으면 입력 (없으면 0)</p>
+        </div>
+      </div>
+      <button id="calc" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg">계산하기</button>
+    </section>
+
+    <!-- 결과 -->
+    <section id="result" class="hidden bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid sm:grid-cols-2 gap-3 mb-4">
+        <div class="bg-blue-50 rounded-lg p-4 text-center">
+          <p class="text-xs text-slate-500 mb-1">매달 필요한 투자액</p>
+          <p id="r_monthly" class="text-xl font-bold text-blue-700"></p>
+        </div>
+        <div class="bg-slate-50 rounded-lg p-4 text-center">
+          <p class="text-xs text-slate-500 mb-1">지금 일시금으로 넣는다면</p>
+          <p id="r_lump" class="text-xl font-bold"></p>
+        </div>
+      </div>
+      <div id="r_detail" class="space-y-2 text-sm"></div>
+      <p id="r_note" class="mt-3 text-sm text-center text-slate-600"></p>
+    </section>
+
+    <!-- 설명 콘텐츠 -->
+    <article class="bg-white rounded-xl border border-slate-200 p-6 space-y-6 text-sm leading-relaxed">
+      <div>
+        <h2 class="text-lg font-bold mb-2">목표자산 역산이란?</h2>
+        <p class="text-slate-600">
+          보통은 "매달 50만 원씩 모으면 얼마가 될까?"를 계산하지만, 역산은 반대입니다. <strong>먼저 목표 금액을
+          정한 뒤, 그 목표를 달성하려면 매달 얼마를 투자해야 하는지</strong>를 거꾸로 구합니다. 막연히 "열심히
+          모아야지"가 아니라, "한 달에 정확히 얼마"라는 구체적인 행동 목표가 생긴다는 점에서 자산 계획에 큰 도움이 됩니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">복리의 힘</h2>
+        <p class="text-slate-600">
+          이 계산기는 단순히 목표 금액을 개월 수로 나누지 않습니다. 투자한 돈에 수익이 붙고, 그 수익에 다시 수익이
+          붙는 <strong>복리</strong>를 반영합니다. 그래서 기간이 길수록, 수익률이 높을수록 실제로 넣어야 할 원금은
+          훨씬 적어집니다. 예를 들어 목표가 같아도 5년보다 20년에 걸쳐 모으면 매달 부담이 크게 줄어듭니다.
+          시간이 곧 가장 강력한 투자 자산인 이유입니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">사용 시 주의할 점 ⚠️</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>수익률은 가정일 뿐입니다.</strong> 실제 시장은 매년 일정하게 오르지 않으며, 손실이 날 수도 있습니다. 보수적으로(예: 연 5~8%) 잡는 것이 안전합니다.</li>
+          <li><strong>세금과 물가는 반영되지 않습니다.</strong> 실수령 기준이나 미래의 구매력까지 고려하려면 목표 금액을 조금 더 높게 잡는 것이 좋습니다.</li>
+          <li><strong>꾸준함이 핵심입니다.</strong> 복리 효과는 중간에 멈추지 않고 오래 지속할 때 제대로 작동합니다.</li>
+        </ul>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        ⚠️ 본 계산기는 가정에 기반한 참고용 계산이며 미래 수익을 보장하지 않습니다. 투자 판단과 책임은 본인에게 있습니다.
+      </p>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
+    <div class="flex flex-wrap justify-center gap-4 mb-2">
+      <a href="index.html" class="hover:text-blue-600">홈</a>
+      <a href="backtest.html" class="hover:text-blue-600">백테스트</a>
+      <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+      <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+    </div>
+    © 2026 MegaMega. All rights reserved.
+  </footer>
+
+  <script>
+    const won = (n) => Math.round(n).toLocaleString() + '원';
+    const eok = (n) => (n / 100000000).toFixed(2);
+    const val = (id) => Number(document.getElementById(id).value) || 0;
+
+    document.getElementById('calc').addEventListener('click', () => {
+      const target = val('target');
+      const years = val('years');
+      const annual = val('rate') / 100;
+      const initial = val('initial');
+
+      if (years <= 0 || target <= 0) return alert('목표 금액과 기간을 입력해 주세요.');
+
+      const n = years * 12;
+      const r = annual / 12;
+      const factor = Math.pow(1 + r, n);
+
+      // 초기자금이 미래에 불어난 값
+      const fvInitial = initial * factor;
+
+      // 매달 필요한 적립액
+      let monthly;
+      if (r === 0) {
+        monthly = (target - initial) / n;
+      } else {
+        monthly = (target - fvInitial) / ((factor - 1) / r);
+      }
+
+      // 지금 일시금으로 넣는다면 필요한 금액 (거치식)
+      const lumpNeeded = target / Math.pow(1 + annual, years);
+
+      const resEl = document.getElementById('result');
+      const noteEl = document.getElementById('r_note');
+
+      if (monthly <= 0) {
+        document.getElementById('r_monthly').textContent = '추가 불필요';
+        noteEl.textContent = '현재 보유 자금만으로도 목표 달성이 가능합니다. (예상 수익률 기준)';
+      } else {
+        document.getElementById('r_monthly').textContent = won(monthly);
+        noteEl.textContent = `매달 ${won(monthly)}씩 ${years}년간 투자하면 목표에 도달합니다. (연 ${(annual*100).toFixed(1)}% 복리 가정)`;
+      }
+      document.getElementById('r_lump').textContent = won(lumpNeeded);
+
+      const totalContrib = (monthly > 0 ? monthly * n : 0) + initial;
+      const profit = target - totalContrib;
+      const rows = [
+        ['목표 금액', won(target) + ` (약 ${eok(target)}억)`, 'font-semibold'],
+        ['투자 기간', years + '년 (' + n + '개월)', ''],
+        ['총 납입 원금', won(totalContrib), ''],
+        ['수익으로 불어난 금액', won(Math.max(0, profit)), 'text-blue-600'],
+      ];
+      document.getElementById('r_detail').innerHTML = rows.map(
+        ([k, v, c]) => `<div class="flex justify-between border-b border-slate-100 pb-1.5"><span class="text-slate-500">${k}</span><span class="${c}">${v}</span></div>`
+      ).join('');
+
+      resEl.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
