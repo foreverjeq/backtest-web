@@ -30,16 +30,23 @@ async function fetchTickerData(ticker, startDate, endDate) {
   const cacheKey = `${ticker}_${period1}_${period2}`;
   if (_cache.has(cacheKey)) return _cache.get(cacheKey);
 
+  const interval = '1mo';
   const yahooUrl =
     `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}` +
-    `?period1=${period1}&period2=${period2}&interval=1mo&events=div`;
+    `?period1=${period1}&period2=${period2}&interval=${interval}&events=div`;
+
+  // 데이터 소스 우선순위:
+  //  1) 우리 서버리스 함수(/api/yahoo) — 같은 도메인이라 CORS 문제 없음 (배포 환경)
+  //  2) 공개 CORS 프록시 — 로컬 테스트나 함수 장애 시 대비
+  const sources = [
+    `/api/yahoo?ticker=${encodeURIComponent(ticker)}&period1=${period1}&period2=${period2}&interval=${interval}`,
+    ...CORS_PROXIES.map((fn) => fn(yahooUrl)),
+  ];
 
   let lastError = null;
-
-  // 프록시를 하나씩 시도
-  for (const makeProxyUrl of CORS_PROXIES) {
+  for (const src of sources) {
     try {
-      const resp = await fetchWithTimeout(makeProxyUrl(yahooUrl), 15000);
+      const resp = await fetchWithTimeout(src, 15000);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
       const json = await resp.json();
@@ -48,7 +55,7 @@ async function fetchTickerData(ticker, startDate, endDate) {
       return parsed;
     } catch (err) {
       lastError = err;
-      // 다음 프록시로 계속
+      // 다음 소스로 계속
     }
   }
 
