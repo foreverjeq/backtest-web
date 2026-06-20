@@ -46,6 +46,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://megamega.kr/contact.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://megamega.kr/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://megamega.kr/privacy.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
