@@ -5,12 +5,14 @@
 
 let currentMode = 'lumpsum';
 let tickerCount = 0;
+let usdKrw = null; // 실시간 USD/KRW 환율 (없으면 null)
 
 // ---------- 초기화 ----------
 document.addEventListener('DOMContentLoaded', () => {
   addTickerRow('SPY', 60);
   addTickerRow('QQQ', 40);
   updateWeightSum();
+  loadExchangeRate();
 
   document.getElementById('addTickerBtn').addEventListener('click', () => {
     if (tickerCount >= 5) return alert('최대 5개까지 추가할 수 있습니다.');
@@ -23,6 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('runBtn').addEventListener('click', runAnalysis);
 });
+
+// ---------- 실시간 환율 불러오기 ----------
+async function loadExchangeRate() {
+  const el = document.getElementById('fxValue');
+  try {
+    const rate = await Fetcher.getUsdKrw();
+    if (rate) {
+      usdKrw = rate;
+      if (el) el.textContent = `$1 = ${rate.toLocaleString(undefined, { maximumFractionDigits: 1 })}원`;
+    } else if (el) {
+      el.textContent = '환율 정보를 불러오지 못했습니다';
+    }
+  } catch (_) {
+    if (el) el.textContent = '환율 정보를 불러오지 못했습니다';
+  }
+}
 
 // ---------- 종목 행 추가 ----------
 function addTickerRow(ticker, weight) {
@@ -214,11 +232,19 @@ function renderResults(cfg, result, benchmark) {
     <p class="text-slate-600"><span class="font-semibold">🎯 적합 투자자:</span> ${cm.suited}</p>
   `;
 
+  // 달러 + (환율 있으면) 원화 환산 2줄 표기
+  const money = (usd) => {
+    const d = '$' + Math.round(usd).toLocaleString();
+    return usdKrw
+      ? `${d}<br><span class="text-xs text-slate-400 font-normal">₩${Math.round(usd * usdKrw).toLocaleString()}</span>`
+      : d;
+  };
+
   // 상세 지표
   const details = [
-    ['최종 자산', '$' + Math.round(result.finalValue).toLocaleString()],
-    ['총 투자원금', '$' + Math.round(result.totalInvested).toLocaleString()],
-    ['누적 배당금', '$' + Math.round(result.totalDividends).toLocaleString()],
+    ['최종 자산', money(result.finalValue)],
+    ['총 투자원금', money(result.totalInvested)],
+    ['누적 배당금', money(result.totalDividends)],
     ['변동성 (연)', pct(m.volatility)],
     ['소르티노 지수', m.sortino.toFixed(2)],
     ['칼마 지수', m.calmar.toFixed(2)],

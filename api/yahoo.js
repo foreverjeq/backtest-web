@@ -14,7 +14,8 @@ module.exports = async (req, res) => {
   }
 
   // 티커는 영문/숫자/일부 기호만 허용 (서버를 임의 요청에 악용하지 못하게)
-  const safeTicker = String(ticker).toUpperCase().replace(/[^A-Z0-9.\-^]/g, '');
+  // '='는 환율 티커(예: KRW=X)를 위해 허용
+  const safeTicker = String(ticker).toUpperCase().replace(/[^A-Z0-9.\-^=]/g, '');
   const p1 = Number(period1) || 0;
   const p2 = Number(period2) || Math.floor(Date.now() / 1000);
   const itv = ['1d', '1wk', '1mo'].includes(interval) ? interval : '1mo';

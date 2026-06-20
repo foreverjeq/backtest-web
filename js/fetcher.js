@@ -177,4 +177,35 @@ async function fetchAndAlign(tickers, startDate, endDate) {
   return { dates, series };
 }
 
-window.Fetcher = { fetchTickerData, fetchAndAlign };
+/**
+ * 실시간 USD/KRW 환율을 가져온다. (1달러 = ?원)
+ * 실패하면 null을 반환 (환율 표시는 부가 기능이라 백테스트를 막지 않음)
+ */
+async function getUsdKrw() {
+  const now = Math.floor(Date.now() / 1000);
+  const p1 = now - 10 * 86400; // 최근 10일 (휴장 대비 여유)
+  const yahooUrl =
+    `https://query1.finance.yahoo.com/v8/finance/chart/KRW=X` +
+    `?period1=${p1}&period2=${now}&interval=1d`;
+
+  const sources = [
+    `/api/yahoo?ticker=${encodeURIComponent('KRW=X')}&period1=${p1}&period2=${now}&interval=1d`,
+    ...CORS_PROXIES.map((fn) => fn(yahooUrl)),
+  ];
+
+  for (const src of sources) {
+    try {
+      const resp = await fetchWithTimeout(src, 10000);
+      if (!resp.ok) continue;
+      const json = await resp.json();
+      const meta = json?.chart?.result?.[0]?.meta;
+      const rate = meta?.regularMarketPrice;
+      if (rate && rate > 0) return rate;
+    } catch (_) {
+      /* 다음 소스로 */
+    }
+  }
+  return null;
+}
+
+window.Fetcher = { fetchTickerData, fetchAndAlign, getUsdKrw };

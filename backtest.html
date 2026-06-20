@@ -33,13 +33,21 @@
   <main class="max-w-6xl mx-auto px-4 py-6">
 
     <!-- 인트로 -->
-    <section class="mb-6">
+    <section class="mb-4">
       <h1 class="text-2xl md:text-3xl font-bold mb-2">미국 ETF·주식 백테스트</h1>
       <p class="text-slate-600 text-sm md:text-base">
         과거 실제 데이터로 내 투자 전략을 검증해 보세요. 종목과 비중을 정하고
         거치식 또는 적립식으로 시뮬레이션하면 수익률·위험 지표를 자동으로 계산합니다.
+        결과 금액은 달러($) 기준입니다.
       </p>
     </section>
+
+    <!-- 실시간 환율 배너 -->
+    <div id="fxBar" class="mb-6 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5 text-sm">
+      <span>💱</span>
+      <span class="text-slate-600">실시간 환율</span>
+      <span id="fxValue" class="font-bold text-amber-700">불러오는 중...</span>
+    </div>
 
     <div class="grid lg:grid-cols-3 gap-6">
 
