@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>해외주식 양도소득세 계산기 - 250만원 공제·22% 자동 계산 | MegaMega</title>
+  <meta name="description" content="미국 등 해외주식 매도 시 내야 할 양도소득세를 자동 계산합니다. 연 250만원 기본공제와 22% 세율(소득세 20%+지방세 2%), 손익통산까지 반영합니다." />
+  <meta name="keywords" content="해외주식 양도소득세, 양도소득세 계산기, 미국주식 세금, 250만원 공제, 해외주식 세금 계산" />
+  <meta property="og:title" content="해외주식 양도소득세 계산기 - MegaMega" />
+  <meta property="og:description" content="해외주식 양도세를 250만원 공제·22% 세율로 자동 계산하세요." />
+  <link rel="canonical" href="https://megamega.kr/tax-transfer.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
+        <a href="about.html" class="hover:text-blue-700">소개</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">해외주식 양도소득세 계산기</h1>
+    <p class="text-slate-600 mb-6 text-sm md:text-base">
+      미국 등 해외주식을 팔았을 때 내야 할 양도소득세를 계산합니다. 연 250만원 기본공제와
+      22% 세율(소득세 20% + 지방소득세 2%)을 반영하며, 같은 해 다른 거래와의 손익통산도 적용할 수 있습니다.
+      금액은 모두 <strong>원화로 환산한 값</strong>을 입력해 주세요.
+    </p>
+
+    <!-- 입력 -->
+    <section class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">총 매수금액 (원)</label>
+          <input id="buy" type="number" value="10000000" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">총 매도금액 (원)</label>
+          <input id="sell" type="number" value="15000000" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">거래 비용·수수료 (원)</label>
+          <input id="fee" type="number" value="0" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">올해 다른 해외주식 손익 (원)</label>
+          <input id="other" type="number" value="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          <p class="text-xs text-slate-400 mt-1">손실이면 마이너스로 입력 (예: -500000)</p>
+        </div>
+      </div>
+      <label class="flex items-center gap-2 mt-4 text-sm">
+        <input id="deduct" type="checkbox" checked class="rounded" />
+        연 250만원 기본공제 적용 (올해 아직 안 썼다면 체크)
+      </label>
+      <button id="calc" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg">세금 계산하기</button>
+    </section>
+
+    <!-- 결과 -->
+    <section id="result" class="hidden bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="bg-blue-50 rounded-lg p-4 text-center col-span-2">
+          <p class="text-xs text-slate-500 mb-1">예상 납부세액 (총)</p>
+          <p id="r_tax" class="text-2xl font-bold text-blue-700"></p>
+        </div>
+      </div>
+      <div id="r_detail" class="space-y-2 text-sm"></div>
+      <p id="r_note" class="mt-3 text-sm text-center"></p>
+    </section>
+
+    <!-- 설명 콘텐츠 -->
+    <article class="bg-white rounded-xl border border-slate-200 p-6 space-y-6 text-sm leading-relaxed">
+      <div>
+        <h2 class="text-lg font-bold mb-2">해외주식 양도소득세란?</h2>
+        <p class="text-slate-600">
+          국내 투자자가 미국·중국·일본 등 해외 주식을 매도하여 이익(양도차익)을 얻으면, 그 차익에 대해
+          양도소득세를 신고·납부해야 합니다. 국내 상장 주식은 대주주가 아닌 일반 투자자에게는 양도소득세가
+          부과되지 않지만, <strong>해외주식은 금액과 무관하게 양도차익에 과세</strong>된다는 점이 큰 차이입니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">세율과 기본공제</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>세율 22%</strong> = 양도소득세 20% + 지방소득세 2%(양도소득세액의 10%)</li>
+          <li><strong>기본공제 연 250만원</strong> — 한 해 동안 발생한 모든 해외주식 양도차익을 합산한 뒤 250만원을 공제합니다. (1년에 한 번)</li>
+          <li><strong>과세표준</strong> = (연간 양도차익 합계 − 250만원), 음수면 0</li>
+          <li><strong>양도소득세</strong> = 과세표준 × 22%</li>
+        </ul>
+        <div class="bg-slate-50 rounded-lg p-3 mt-2 text-slate-700">
+          예시) 양도차익 500만 원 → (500만 − 250만) × 22% = <strong>55만 원</strong>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">꼭 알아둘 점 ⚠️</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>환율이 손익에 포함됩니다.</strong> 양도차익은 매수·매도 당시 환율로 원화 환산한 금액으로 계산하므로, 주가가 그대로여도 환차익·환차손이 세금에 영향을 줍니다.</li>
+          <li><strong>손익통산이 가능합니다.</strong> 같은 해에 A종목에서 이익, B종목에서 손실이 났다면 합산하여 순이익에만 과세됩니다.</li>
+          <li><strong>신고 시기는 다음 해 5월입니다.</strong> 양도일이 속한 연도의 다음 해 5월에 양도소득세 확정신고·납부를 합니다.</li>
+          <li><strong>증권사 대행 서비스</strong>를 이용하면 신고를 도와주기도 하지만, 최종 책임은 본인에게 있습니다.</li>
+        </ul>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        ⚠️ 본 계산기는 일반적인 기준에 따른 참고용 계산이며, 실제 세액은 개인의 상황·환율·필요경비 인정 범위 등에 따라
+        달라질 수 있습니다. 정확한 신고는 세무 전문가나 국세청 안내를 따르세요.
+      </p>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
+    <div class="flex flex-wrap justify-center gap-4 mb-2">
+      <a href="index.html" class="hover:text-blue-600">홈</a>
+      <a href="backtest.html" class="hover:text-blue-600">백테스트</a>
+      <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+      <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+    </div>
+    © 2026 MegaMega. All rights reserved.
+  </footer>
+
+  <script>
+    const won = (n) => Math.round(n).toLocaleString() + '원';
+    const val = (id) => Number(document.getElementById(id).value) || 0;
+
+    document.getElementById('calc').addEventListener('click', () => {
+      const buy = val('buy'), sell = val('sell'), fee = val('fee'), other = val('other');
+      const useDeduct = document.getElementById('deduct').checked;
+
+      const profitThis = sell - buy - fee;          // 이번 거래 양도차익
+      const totalGain = profitThis + other;         // 연간 합산 양도소득
+      const deduction = useDeduct ? 2500000 : 0;
+      const base = Math.max(0, totalGain - deduction); // 과세표준
+      const incomeTax = base * 0.20;                // 양도소득세(국세)
+      const localTax = incomeTax * 0.10;            // 지방소득세
+      const totalTax = incomeTax + localTax;        // 총세액 (=base*0.22)
+      const netProfit = totalGain - totalTax;       // 세후 순이익
+
+      document.getElementById('r_tax').textContent = won(totalTax);
+
+      const rows = [
+        ['이번 거래 양도차익', won(profitThis), profitThis >= 0 ? '' : 'text-red-600'],
+        ['연간 합산 양도소득', won(totalGain), totalGain >= 0 ? '' : 'text-red-600'],
+        ['기본공제', useDeduct ? '−' + won(2500000) : '미적용', 'text-slate-500'],
+        ['과세표준', won(base), ''],
+        ['양도소득세 (20%)', won(incomeTax), ''],
+        ['지방소득세 (2%)', won(localTax), ''],
+        ['세후 순이익', won(netProfit), 'font-semibold'],
+      ];
+      document.getElementById('r_detail').innerHTML = rows.map(
+        ([k, v, c]) => `<div class="flex justify-between border-b border-slate-100 pb-1.5"><span class="text-slate-500">${k}</span><span class="${c}">${v}</span></div>`
+      ).join('');
+
+      const noteEl = document.getElementById('r_note');
+      if (totalGain <= 0) {
+        noteEl.innerHTML = '<span class="text-slate-500">합산 손익이 0 이하이므로 납부할 양도소득세가 없습니다.</span>';
+      } else if (base === 0) {
+        noteEl.innerHTML = '<span class="text-green-600">기본공제(250만원) 이내라 납부할 양도소득세가 없습니다.</span>';
+      } else {
+        noteEl.innerHTML = `실효세율 약 <b>${(totalTax / totalGain * 100).toFixed(1)}%</b> (합산 양도소득 대비)`;
+      }
+      document.getElementById('result').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
