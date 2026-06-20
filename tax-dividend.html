@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>배당소득세 계산기 - 국내·해외 배당 실수령액 계산 | MegaMega</title>
+  <meta name="description" content="국내·해외(미국) 주식 배당금에서 떼는 세금과 실수령액을 계산합니다. 국내 15.4%, 해외 현지 원천징수와 외국납부세액공제, 금융소득종합과세 2천만원 기준까지 안내." />
+  <meta name="keywords" content="배당소득세 계산기, 배당금 세금, 미국 배당세, 15.4% 원천징수, 금융소득종합과세, 배당 실수령액" />
+  <meta property="og:title" content="배당소득세 계산기 - MegaMega" />
+  <meta property="og:description" content="국내·해외 배당금의 세금과 실수령액을 즉시 계산하세요." />
+  <link rel="canonical" href="https://megamega.kr/tax-dividend.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
+        <a href="about.html" class="hover:text-blue-700">소개</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">배당소득세 계산기</h1>
+    <p class="text-slate-600 mb-6 text-sm md:text-base">
+      국내 또는 해외(미국 등) 주식에서 받은 배당금에서 떼는 세금과 실제로 손에 쥐는 금액을 계산합니다.
+      금액은 <strong>원화로 환산한 세전 배당금</strong>을 입력해 주세요.
+    </p>
+
+    <!-- 모드 토글 -->
+    <div class="grid grid-cols-2 gap-1 bg-slate-100 rounded-lg p-1 mb-6 max-w-sm">
+      <button data-tab="domestic" class="tab-btn py-2 text-sm rounded-md bg-white shadow font-medium">국내 배당</button>
+      <button data-tab="foreign" class="tab-btn py-2 text-sm rounded-md">해외 배당</button>
+    </div>
+
+    <!-- 입력 -->
+    <section class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">세전 배당금 (원)</label>
+          <input id="dividend" type="number" value="1000000" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div id="foreignField" class="hidden">
+          <label class="block text-sm font-semibold mb-1">현지 원천징수율 (%)</label>
+          <input id="rate" type="number" value="15" min="0" max="100" step="0.1" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          <p class="text-xs text-slate-400 mt-1">미국은 15% (한·미 조세조약). 나라마다 다릅니다.</p>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">올해 총 금융소득 (이자+배당, 원)</label>
+          <input id="annual" type="number" value="0" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          <p class="text-xs text-slate-400 mt-1">2,000만원 초과 여부 확인용 (모르면 0으로 두세요)</p>
+        </div>
+      </div>
+      <button id="calc" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg">세금 계산하기</button>
+    </section>
+
+    <!-- 결과 -->
+    <section id="result" class="hidden bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="bg-blue-50 rounded-lg p-4 text-center mb-4">
+        <p class="text-xs text-slate-500 mb-1">실수령액</p>
+        <p id="r_net" class="text-2xl font-bold text-blue-700"></p>
+      </div>
+      <div id="r_detail" class="space-y-2 text-sm"></div>
+      <p id="r_warn" class="hidden mt-3 text-sm text-amber-700 bg-amber-50 rounded-lg p-3"></p>
+    </section>
+
+    <!-- 설명 콘텐츠 -->
+    <article class="bg-white rounded-xl border border-slate-200 p-6 space-y-6 text-sm leading-relaxed">
+      <div>
+        <h2 class="text-lg font-bold mb-2">배당소득세란?</h2>
+        <p class="text-slate-600">
+          주식을 보유하면 기업이 이익의 일부를 주주에게 나눠 주는 배당금을 받게 됩니다. 이 배당금은 소득이므로
+          세금이 부과되며, 대부분 받을 때 자동으로 떼는 <strong>원천징수</strong> 방식으로 납부됩니다. 그래서
+          계좌에는 세금을 뺀 금액이 들어옵니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">국내 배당 vs 해외 배당</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>국내 배당</strong>: 15.4% 원천징수 (소득세 14% + 지방소득세 1.4%). 세후 약 84.6%를 받습니다.</li>
+          <li><strong>해외 배당</strong>: 현지에서 먼저 원천징수합니다. 미국은 한·미 조세조약에 따라 15%를 뗍니다.
+            현지 세율(15%)이 국내 소득세율(14%)보다 높으면 외국납부세액공제로 처리되어 국내에서 추가로 떼지 않는 것이 일반적입니다.</li>
+          <li>현지 원천징수율이 14%보다 낮은 나라는, 국내에서 차액만큼 추가로 징수해 14%(+지방세) 수준을 맞춥니다.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">금융소득종합과세 (2,000만원 기준)</h2>
+        <p class="text-slate-600">
+          한 해 동안 받은 이자와 배당을 합한 <strong>금융소득이 2,000만 원을 넘으면</strong>, 초과분은 다른 소득과
+          합산하여 누진세율(6~45%)로 종합과세됩니다. 즉, 배당이 많을수록 단순 15.4%보다 세 부담이 커질 수 있습니다.
+          2,000만 원 이하라면 원천징수로 납세가 종결(분리과세)되어 추가 신고가 필요 없습니다.
+        </p>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        ⚠️ 본 계산기는 일반적인 기준에 따른 참고용이며, 실제 세액은 조세조약·개인 소득 상황·환율 등에 따라 달라질 수 있습니다.
+        정확한 내용은 세무 전문가나 국세청 안내를 확인하세요.
+      </p>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
+    <div class="flex flex-wrap justify-center gap-4 mb-2">
+      <a href="index.html" class="hover:text-blue-600">홈</a>
+      <a href="backtest.html" class="hover:text-blue-600">백테스트</a>
+      <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+      <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+    </div>
+    © 2026 MegaMega. All rights reserved.
+  </footer>
+
+  <script>
+    const won = (n) => Math.round(n).toLocaleString() + '원';
+    const val = (id) => Number(document.getElementById(id).value) || 0;
+    let mode = 'domestic';
+
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        mode = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('bg-white', active);
+          b.classList.toggle('shadow', active);
+          b.classList.toggle('font-medium', active);
+        });
+        document.getElementById('foreignField').classList.toggle('hidden', mode !== 'foreign');
+      });
+    });
+
+    document.getElementById('calc').addEventListener('click', () => {
+      const div = val('dividend');
+      const annual = val('annual');
+      let rows = [], net = 0;
+
+      if (mode === 'domestic') {
+        const incomeTax = div * 0.14;
+        const localTax = div * 0.014;
+        const total = incomeTax + localTax;
+        net = div - total;
+        rows = [
+          ['세전 배당금', won(div), ''],
+          ['소득세 (14%)', '−' + won(incomeTax), 'text-slate-500'],
+          ['지방소득세 (1.4%)', '−' + won(localTax), 'text-slate-500'],
+          ['총 세금 (15.4%)', '−' + won(total), ''],
+        ];
+      } else {
+        const rate = val('rate') / 100;
+        const foreignTax = div * rate;                         // 현지 원천징수
+        const krIncomeDiff = Math.max(0, div * 0.14 - foreignTax); // 국내 소득세 차액(외국납부세액공제 후)
+        const krLocal = krIncomeDiff * 0.10;                   // 차액에 대한 지방세
+        const krAdd = krIncomeDiff + krLocal;
+        const total = foreignTax + krAdd;
+        net = div - total;
+        rows = [
+          ['세전 배당금', won(div), ''],
+          [`현지 원천징수 (${(rate*100).toFixed(1)}%)`, '−' + won(foreignTax), 'text-slate-500'],
+          ['국내 추가 징수', krAdd > 0 ? '−' + won(krAdd) : '없음', 'text-slate-500'],
+          ['총 세금', '−' + won(total), ''],
+        ];
+      }
+
+      document.getElementById('r_net').textContent = won(net);
+      rows.push(['실수령액', won(net), 'font-semibold text-blue-700']);
+      document.getElementById('r_detail').innerHTML = rows.map(
+        ([k, v, c]) => `<div class="flex justify-between border-b border-slate-100 pb-1.5"><span class="text-slate-500">${k}</span><span class="${c}">${v}</span></div>`
+      ).join('');
+
+      const warnEl = document.getElementById('r_warn');
+      if (annual > 20000000) {
+        warnEl.textContent = `⚠️ 올해 금융소득이 2,000만 원을 초과(${won(annual)})하여, 초과분은 다른 소득과 합산해 종합과세됩니다. 실제 세 부담은 위 계산보다 커질 수 있어요.`;
+        warnEl.classList.remove('hidden');
+      } else {
+        warnEl.classList.add('hidden');
+      }
+      document.getElementById('result').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
