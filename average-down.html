@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>물타기 계산기 - 추가 매수 평균 단가 계산 | MegaMega</title>
+  <meta name="description" content="주식 추가 매수(물타기) 시 평균 단가가 얼마로 낮아지는지 즉시 계산. 목표 평단가에 도달하려면 몇 주를 더 사야 하는지 역산도 가능합니다." />
+  <meta name="keywords" content="물타기 계산기, 평단가 계산기, 평균단가 계산, 추가매수 계산, 주식 물타기" />
+  <meta property="og:title" content="물타기 계산기 - MegaMega" />
+  <meta property="og:description" content="추가 매수 시 평균 단가를 즉시 계산하고 목표 평단가도 역산하세요." />
+  <link rel="canonical" href="https://megamega.kr/average-down.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
+        <a href="about.html" class="hover:text-blue-700">소개</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">물타기 계산기</h1>
+    <p class="text-slate-600 mb-6 text-sm md:text-base">
+      이미 보유한 주식에 추가로 매수하면 평균 단가가 얼마로 낮아지는지 계산합니다.
+      종목 가격이 원화든 달러든 단위에 상관없이 같은 단위로만 입력하면 됩니다.
+    </p>
+
+    <!-- 모드 토글 -->
+    <div class="grid grid-cols-2 gap-1 bg-slate-100 rounded-lg p-1 mb-6 max-w-sm">
+      <button data-tab="basic" class="tab-btn py-2 text-sm rounded-md bg-white shadow font-medium">평단가 계산</button>
+      <button data-tab="target" class="tab-btn py-2 text-sm rounded-md">목표 평단가 역산</button>
+    </div>
+
+    <!-- ===== 기본: 평단가 계산 ===== -->
+    <section id="basicPanel" class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">보유 평균 단가</label>
+          <input id="b_avg" type="number" value="100" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">보유 수량 (주)</label>
+          <input id="b_qty" type="number" value="10" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">추가 매수 단가</label>
+          <input id="b_addPrice" type="number" value="80" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">추가 매수 수량 (주)</label>
+          <input id="b_addQty" type="number" value="10" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+      </div>
+      <button id="calcBasic" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg">계산하기</button>
+
+      <div id="basicResult" class="hidden mt-5 pt-5 border-t border-slate-100">
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="bg-blue-50 rounded-lg p-3">
+            <p class="text-xs text-slate-500 mb-1">새 평균 단가</p>
+            <p id="r_newAvg" class="text-lg font-bold text-blue-700"></p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="text-xs text-slate-500 mb-1">총 보유 수량</p>
+            <p id="r_totalQty" class="text-lg font-bold"></p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="text-xs text-slate-500 mb-1">총 매수 금액</p>
+            <p id="r_totalCost" class="text-lg font-bold"></p>
+          </div>
+        </div>
+        <p id="r_diff" class="mt-3 text-sm text-center text-slate-600"></p>
+      </div>
+    </section>
+
+    <!-- ===== 역산: 목표 평단가 ===== -->
+    <section id="targetPanel" class="hidden bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">보유 평균 단가</label>
+          <input id="t_avg" type="number" value="100" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">보유 수량 (주)</label>
+          <input id="t_qty" type="number" value="10" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">현재(추가 매수) 가격</label>
+          <input id="t_price" type="number" value="80" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">목표 평균 단가</label>
+          <input id="t_target" type="number" value="90" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+      </div>
+      <button id="calcTarget" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg">필요 수량 계산</button>
+
+      <div id="targetResult" class="hidden mt-5 pt-5 border-t border-slate-100 text-center">
+        <p class="text-sm text-slate-500 mb-1">목표 평단가에 도달하려면</p>
+        <p id="r_needQty" class="text-2xl font-bold text-blue-700"></p>
+        <p id="r_needCost" class="mt-2 text-sm text-slate-600"></p>
+      </div>
+      <p id="targetError" class="hidden mt-4 text-sm text-red-600 text-center"></p>
+    </section>
+
+    <!-- ===== 설명 콘텐츠 (애드센스/사용자용) ===== -->
+    <article class="bg-white rounded-xl border border-slate-200 p-6 space-y-6 text-sm leading-relaxed">
+      <div>
+        <h2 class="text-lg font-bold mb-2">물타기란 무엇인가요?</h2>
+        <p class="text-slate-600">
+          물타기(평균 단가 낮추기)는 보유한 주식의 가격이 매수 가격보다 떨어졌을 때, 더 낮은 가격에 추가로
+          매수하여 전체 평균 매입 단가를 낮추는 전략입니다. 평균 단가가 낮아지면 주가가 조금만 반등해도
+          더 빨리 손익분기점(본전)에 도달할 수 있습니다. 예를 들어 1만 원에 산 주식이 8천 원으로 떨어졌을 때
+          같은 수량을 8천 원에 더 사면 평균 단가는 9천 원이 되어, 9천 원만 회복해도 본전이 됩니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">평균 단가 계산 공식</h2>
+        <p class="text-slate-600">
+          새 평균 단가는 아래처럼 "전체 매수 금액"을 "전체 수량"으로 나누어 구합니다.
+        </p>
+        <div class="bg-slate-50 rounded-lg p-3 mt-2 text-slate-700">
+          새 평균 단가 = (기존 평단가 × 기존 수량 + 추가 단가 × 추가 수량) ÷ (기존 수량 + 추가 수량)
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold mb-2">물타기 전, 꼭 생각할 점 ⚠️</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>기업 가치가 그대로인지 확인하세요.</strong> 단순히 가격이 싸졌다는 이유만으로 물타기를 하면, 하락에 이유가 있는 종목에 돈을 더 묶어둘 위험이 있습니다.</li>
+          <li><strong>비중 관리가 중요합니다.</strong> 물타기를 반복하면 한 종목 비중이 과도하게 커져 위험이 집중됩니다.</li>
+          <li><strong>평균 단가가 낮아져도 손실은 그대로일 수 있습니다.</strong> 평단가가 낮아지는 것과 실제 평가손익은 다른 개념입니다.</li>
+          <li><strong>여유 자금으로만 하세요.</strong> 추가 매수 자금이 생활자금이라면 하락이 길어질 때 버티기 어렵습니다.</li>
+        </ul>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        ⚠️ 본 계산기는 단순 산술 계산 도구이며 투자 권유가 아닙니다. 모든 투자 판단과 책임은 투자자 본인에게 있습니다.
+      </p>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
+    <div class="flex flex-wrap justify-center gap-4 mb-2">
+      <a href="index.html" class="hover:text-blue-600">홈</a>
+      <a href="backtest.html" class="hover:text-blue-600">백테스트</a>
+      <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+      <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+    </div>
+    © 2026 MegaMega. All rights reserved.
+  </footer>
+
+  <script>
+    // 숫자 천단위 콤마
+    const fmt = (n) => Math.round(n * 100) / 100;
+    const comma = (n) => fmt(n).toLocaleString();
+
+    // 탭 전환
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('bg-white', active);
+          b.classList.toggle('shadow', active);
+          b.classList.toggle('font-medium', active);
+        });
+        document.getElementById('basicPanel').classList.toggle('hidden', tab !== 'basic');
+        document.getElementById('targetPanel').classList.toggle('hidden', tab !== 'target');
+      });
+    });
+
+    const val = (id) => Number(document.getElementById(id).value) || 0;
+
+    // 기본 계산
+    document.getElementById('calcBasic').addEventListener('click', () => {
+      const avg = val('b_avg'), qty = val('b_qty'), addP = val('b_addPrice'), addQ = val('b_addQty');
+      const totalQty = qty + addQ;
+      if (totalQty <= 0) return alert('수량을 입력해 주세요.');
+      const totalCost = avg * qty + addP * addQ;
+      const newAvg = totalCost / totalQty;
+
+      document.getElementById('r_newAvg').textContent = comma(newAvg);
+      document.getElementById('r_totalQty').textContent = comma(totalQty) + '주';
+      document.getElementById('r_totalCost').textContent = comma(totalCost);
+
+      const drop = avg - newAvg;
+      const dropPct = avg > 0 ? (drop / avg) * 100 : 0;
+      document.getElementById('r_diff').innerHTML =
+        drop >= 0
+          ? `평균 단가가 <b class="text-blue-600">${comma(avg)} → ${comma(newAvg)}</b> 로 ${comma(drop)} (${fmt(dropPct)}%) 낮아졌습니다.`
+          : `이번 매수 단가가 기존 평단가보다 높아 평균 단가가 <b class="text-red-600">${comma(avg)} → ${comma(newAvg)}</b> 로 오히려 올라갔습니다.`;
+      document.getElementById('basicResult').classList.remove('hidden');
+    });
+
+    // 역산 계산
+    document.getElementById('calcTarget').addEventListener('click', () => {
+      const avg = val('t_avg'), qty = val('t_qty'), price = val('t_price'), target = val('t_target');
+      const errEl = document.getElementById('targetError');
+      const resEl = document.getElementById('targetResult');
+      errEl.classList.add('hidden'); resEl.classList.add('hidden');
+
+      if (target >= avg) { errEl.textContent = '목표 평단가는 기존 평단가보다 낮아야 합니다.'; errEl.classList.remove('hidden'); return; }
+      if (price >= target) { errEl.textContent = '추가 매수 가격이 목표 평단가보다 낮아야 도달할 수 있습니다.'; errEl.classList.remove('hidden'); return; }
+
+      // x = 보유수량 × (보유평단 - 목표평단) / (목표평단 - 현재가)
+      const x = (qty * (avg - target)) / (target - price);
+      const cost = x * price;
+      document.getElementById('r_needQty').textContent = '약 ' + comma(x) + '주';
+      document.getElementById('r_needCost').textContent = `추가 매수 금액: 약 ${comma(cost)} (가격 ${comma(price)} 기준)`;
+      resEl.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

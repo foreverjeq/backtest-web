@@ -3,194 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>미국 ETF 백테스트 - 나만의 투자 전략 검증 | BacktestLab</title>
-  <meta name="description" content="SPY, QQQ 등 미국 ETF·주식으로 거치식·적립식 백테스트. CAGR, MDD, 샤프지수, 변동성을 무료로 자동 계산하고 자산 성장 차트로 확인하세요." />
-  <meta name="keywords" content="ETF 백테스트, 미국주식 백테스트, SPY QQQ, 포트폴리오 백테스팅, CAGR MDD 계산, 적립식 투자 시뮬레이션" />
-  <meta property="og:title" content="미국 ETF 백테스트 - BacktestLab" />
-  <meta property="og:description" content="과거 데이터로 내 투자 전략을 검증하세요. CAGR·MDD·샤프지수 자동 계산." />
+  <title>투자 계산기 모음 - 백테스트·양도세·배당세·물타기 | MegaMega</title>
+  <meta name="description" content="주식·ETF 투자자를 위한 무료 계산기 모음. 백테스트, 해외주식 양도소득세, 배당소득세, 물타기(평단가) 계산기, 목표자산 역산까지 한 곳에서." />
+  <meta name="keywords" content="투자 계산기, 백테스트, 양도소득세 계산기, 배당소득세 계산기, 물타기 계산기, 평단가 계산기, 목표자산 계산기" />
+  <meta property="og:title" content="MegaMega - 투자 계산기 모음" />
+  <meta property="og:description" content="주식·ETF 투자자를 위한 무료 계산기 모음." />
   <meta property="og:type" content="website" />
   <link rel="canonical" href="https://megamega.kr/" />
-
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-  <!-- 헤더 -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">
-        📊 BacktestLab
-      </a>
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
       <nav class="flex gap-4 text-sm text-slate-600">
-        <a href="index.html" class="hover:text-blue-700">백테스트</a>
-        <a href="guide.html" class="hover:text-blue-700">지표 가이드</a>
+        <a href="index.html" class="text-blue-700 font-semibold">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
         <a href="about.html" class="hover:text-blue-700">소개</a>
       </nav>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 py-6">
+  <main class="max-w-6xl mx-auto px-4 py-8">
 
-    <!-- 인트로 -->
-    <section class="mb-6">
-      <h1 class="text-2xl md:text-3xl font-bold mb-2">미국 ETF·주식 백테스트</h1>
-      <p class="text-slate-600 text-sm md:text-base">
-        과거 실제 데이터로 내 투자 전략을 검증해 보세요. 종목과 비중을 정하고
-        거치식 또는 적립식으로 시뮬레이션하면 수익률·위험 지표를 자동으로 계산합니다.
+    <!-- 히어로 -->
+    <section class="text-center mb-12 mt-4">
+      <h1 class="text-3xl md:text-4xl font-bold mb-3">주식·ETF 투자자를 위한 계산기 모음</h1>
+      <p class="text-slate-600 max-w-2xl mx-auto">
+        백테스트부터 세금·평단가·목표자산 계산까지. 투자 판단에 꼭 필요한 도구를
+        무료로, 가입 없이 바로 사용하세요. 모든 계산은 브라우저에서 즉시 처리됩니다.
       </p>
     </section>
 
-    <div class="grid lg:grid-cols-3 gap-6">
+    <!-- 도구 카드 -->
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
 
-      <!-- ============ 입력 영역 ============ -->
-      <section class="lg:col-span-1 bg-white rounded-xl border border-slate-200 p-5 h-fit">
-        <h2 class="font-bold text-lg mb-4">⚙️ 설정</h2>
+      <a href="backtest.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
+        <div class="text-3xl mb-3">📈</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">ETF 백테스트</h2>
+        <p class="text-sm text-slate-500">SPY·QQQ 등 미국 ETF를 과거 데이터로 검증. CAGR·MDD·샤프지수 자동 계산.</p>
+        <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">바로 사용 →</span>
+      </a>
 
-        <!-- 종목 입력 -->
-        <div class="mb-5">
-          <label class="block text-sm font-semibold mb-2">종목 / ETF (최대 5개)</label>
-          <div id="tickerList" class="space-y-2"></div>
-          <button id="addTickerBtn" type="button"
-            class="mt-2 text-sm text-blue-600 hover:text-blue-800">+ 종목 추가</button>
-          <p class="mt-2 text-sm" id="weightSum">총 비중: 0%</p>
-        </div>
+      <a href="average-down.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
+        <div class="text-3xl mb-3">💧</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">물타기 계산기</h2>
+        <p class="text-sm text-slate-500">추가 매수 시 평균 단가가 얼마로 낮아지는지 즉시 계산. 목표 평단가 역산도 가능.</p>
+        <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">바로 사용 →</span>
+      </a>
 
-        <!-- 투자 방식 -->
-        <div class="mb-5">
-          <label class="block text-sm font-semibold mb-2">투자 방식</label>
-          <div class="grid grid-cols-3 gap-1 bg-slate-100 rounded-lg p-1" id="modeToggle">
-            <button data-mode="lumpsum" class="mode-btn py-1.5 text-sm rounded-md bg-white shadow font-medium">거치식</button>
-            <button data-mode="dca" class="mode-btn py-1.5 text-sm rounded-md">적립식</button>
-            <button data-mode="hybrid" class="mode-btn py-1.5 text-sm rounded-md">혼합</button>
-          </div>
-        </div>
+      <div class="group bg-white rounded-2xl border border-slate-200 p-6 opacity-75 cursor-default">
+        <div class="text-3xl mb-3">🧾</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">양도소득세 계산기</h2>
+        <p class="text-sm text-slate-500">해외주식 매도 시 내야 할 양도소득세를 기본공제 250만원 반영해 계산.</p>
+        <span class="inline-block mt-3 text-xs text-amber-600 font-semibold">준비 중</span>
+      </div>
 
-        <!-- 금액 -->
-        <div class="mb-4">
-          <label class="block text-sm font-semibold mb-1">초기 투자금 ($)</label>
-          <input id="initialAmount" type="number" value="10000" min="0"
-            class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
-        </div>
+      <div class="group bg-white rounded-2xl border border-slate-200 p-6 opacity-75 cursor-default">
+        <div class="text-3xl mb-3">💵</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">배당소득세 계산기</h2>
+        <p class="text-sm text-slate-500">배당금에서 떼는 세금과 실수령액을 계산. 금융소득종합과세 기준도 안내.</p>
+        <span class="inline-block mt-3 text-xs text-amber-600 font-semibold">준비 중</span>
+      </div>
 
-        <div id="dcaFields" class="mb-4 hidden">
-          <label class="block text-sm font-semibold mb-1">정기 적립금 ($)</label>
-          <input id="contribution" type="number" value="500" min="0"
-            class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mb-2" />
-          <label class="block text-sm font-semibold mb-1">적립 주기</label>
-          <select id="frequency" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-            <option value="monthly">매월</option>
-            <option value="quarterly">매분기</option>
-            <option value="yearly">매년</option>
-          </select>
-        </div>
+      <div class="group bg-white rounded-2xl border border-slate-200 p-6 opacity-75 cursor-default">
+        <div class="text-3xl mb-3">🎯</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">목표자산 역산 계산기</h2>
+        <p class="text-sm text-slate-500">목표 금액과 기간·수익률을 넣으면, 매달 얼마를 투자해야 하는지 역산.</p>
+        <span class="inline-block mt-3 text-xs text-amber-600 font-semibold">준비 중</span>
+      </div>
 
-        <!-- 기간 -->
-        <div class="mb-4 grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-sm font-semibold mb-1">시작</label>
-            <input id="startDate" type="month" value="2015-01"
-              class="w-full border border-slate-300 rounded-lg px-2 py-2 text-sm" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">종료</label>
-            <input id="endDate" type="month" value="2024-12"
-              class="w-full border border-slate-300 rounded-lg px-2 py-2 text-sm" />
-          </div>
-        </div>
+      <a href="guide.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
+        <div class="text-3xl mb-3">📚</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">투자 지표 가이드</h2>
+        <p class="text-sm text-slate-500">CAGR, MDD, 샤프지수 등 투자 지표를 초보자도 이해하기 쉽게 설명.</p>
+        <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">읽어보기 →</span>
+      </a>
+    </section>
 
-        <!-- 고급 옵션 -->
-        <div class="mb-4 space-y-2 text-sm">
-          <label class="flex items-center gap-2">
-            <input id="drip" type="checkbox" checked class="rounded" />
-            배당 재투자 (DRIP)
-          </label>
-          <div>
-            <label class="block font-semibold mb-1">리밸런싱 주기</label>
-            <select id="rebalance" class="w-full border border-slate-300 rounded-lg px-2 py-2">
-              <option value="none">없음</option>
-              <option value="yearly">매년</option>
-              <option value="quarterly">매분기</option>
-            </select>
-          </div>
-        </div>
-
-        <button id="runBtn"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition">
-          🚀 백테스트 시작
-        </button>
-        <p id="errorMsg" class="mt-3 text-sm text-red-600 hidden"></p>
-      </section>
-
-      <!-- ============ 결과 영역 ============ -->
-      <section class="lg:col-span-2">
-
-        <!-- 로딩 -->
-        <div id="loading" class="hidden bg-white rounded-xl border border-slate-200 p-10 text-center">
-          <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-blue-200 border-t-blue-600"></div>
-          <p class="mt-3 text-slate-500 text-sm">데이터를 가져와 계산하는 중입니다...</p>
-        </div>
-
-        <!-- 시작 안내 -->
-        <div id="placeholder" class="bg-white rounded-xl border border-dashed border-slate-300 p-10 text-center text-slate-400">
-          <p class="text-4xl mb-2">📈</p>
-          <p>왼쪽에서 종목과 조건을 설정한 뒤<br/>'백테스트 시작'을 눌러주세요.</p>
-        </div>
-
-        <!-- 결과 -->
-        <div id="results" class="hidden space-y-6">
-
-          <!-- 핵심 지표 카드 -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="metricCards"></div>
-
-          <!-- 성장 차트 -->
-          <div class="bg-white rounded-xl border border-slate-200 p-5">
-            <h3 class="font-bold mb-3">자산 성장 추이</h3>
-            <div class="h-72"><canvas id="growthChart"></canvas></div>
-          </div>
-
-          <!-- AI 코멘트 -->
-          <div class="bg-white rounded-xl border border-slate-200 p-5">
-            <h3 class="font-bold mb-3">🤖 포트폴리오 분석</h3>
-            <div id="commentBox" class="text-sm leading-relaxed space-y-3"></div>
-          </div>
-
-          <!-- 상세 지표 -->
-          <div class="bg-white rounded-xl border border-slate-200 p-5">
-            <h3 class="font-bold mb-3">상세 지표</h3>
-            <div id="detailTable" class="grid grid-cols-2 md:grid-cols-3 gap-y-2 gap-x-4 text-sm"></div>
-          </div>
-
-          <!-- 연도별 수익 -->
-          <div class="bg-white rounded-xl border border-slate-200 p-5 overflow-x-auto">
-            <h3 class="font-bold mb-3">연도별 성과</h3>
-            <table class="w-full text-sm" id="yearlyTable"></table>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 면책 -->
-    <p class="text-xs text-slate-400 mt-8 text-center">
-      ⚠️ 본 도구는 과거 데이터 기반 시뮬레이션이며 미래 수익을 보장하지 않습니다. 투자 판단의 참고용으로만 활용하세요.
-      데이터 출처: Yahoo Finance
-    </p>
+    <!-- 사이트 소개 -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-8 mb-10">
+      <h2 class="text-xl font-bold mb-3">MegaMega는 어떤 곳인가요?</h2>
+      <p class="text-slate-600 leading-relaxed mb-3">
+        MegaMega는 주식과 ETF에 투자하는 분들이 자주 마주치는 계산을 손쉽게 해결하도록 만든
+        무료 도구 모음입니다. "이 전략으로 과거에 투자했다면 결과가 어땠을까?", "추가 매수하면 평단가가
+        얼마가 될까?", "해외주식을 팔면 세금이 얼마나 나올까?" 같은 질문에 빠르고 정확한 답을 드립니다.
+      </p>
+      <p class="text-slate-600 leading-relaxed">
+        모든 도구는 회원가입 없이 무료로 사용할 수 있으며, 입력한 정보는 서버로 전송되지 않고
+        브라우저 안에서만 계산됩니다. 투자 판단에 필요한 도구를 한 곳에서 편리하게 이용하세요.
+      </p>
+    </section>
   </main>
 
-  <footer class="border-t border-slate-200 mt-10 py-6 text-center text-xs text-slate-400">
-    <div class="flex justify-center gap-4 mb-2">
-      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
+  <footer class="border-t border-slate-200 mt-10 py-8 text-center text-xs text-slate-400">
+    <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-3">
+      <a href="backtest.html" class="hover:text-blue-600">백테스트</a>
+      <a href="average-down.html" class="hover:text-blue-600">물타기 계산기</a>
       <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
+      <a href="about.html" class="hover:text-blue-600">사이트 소개</a>
       <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
     </div>
-    © 2026 BacktestLab. All rights reserved.
+    © 2026 MegaMega. All rights reserved.
   </footer>
-
-  <script src="js/fetcher.js"></script>
-  <script src="js/backtest.js"></script>
-  <script src="js/comment.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>

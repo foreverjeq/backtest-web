@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>사이트 소개 - BacktestLab | 무료 미국 ETF 백테스트 도구</title>
-  <meta name="description" content="BacktestLab은 미국 ETF·주식을 과거 데이터로 검증하는 무료 백테스트 도구입니다. 사이트의 목적과 사용법, 데이터 출처를 소개합니다." />
+  <title>사이트 소개 - MegaMega | 무료 미국 ETF 백테스트 도구</title>
+  <meta name="description" content="MegaMega은 미국 ETF·주식을 과거 데이터로 검증하는 무료 백테스트 도구입니다. 사이트의 목적과 사용법, 데이터 출처를 소개합니다." />
   <link rel="canonical" href="https://megamega.kr/about.html" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css" />
@@ -13,10 +13,11 @@
 
   <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 BacktestLab</a>
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
       <nav class="flex gap-4 text-sm text-slate-600">
-        <a href="index.html" class="hover:text-blue-700">백테스트</a>
-        <a href="guide.html" class="hover:text-blue-700">지표 가이드</a>
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="backtest.html" class="hover:text-blue-700">백테스트</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
         <a href="about.html" class="text-blue-700 font-semibold">소개</a>
       </nav>
     </div>
@@ -26,30 +27,30 @@
     <h1 class="text-3xl font-bold mb-6">사이트 소개</h1>
 
     <section class="mb-8">
-      <h2 class="text-xl font-bold mb-3">BacktestLab은 어떤 사이트인가요?</h2>
+      <h2 class="text-xl font-bold mb-3">MegaMega는 어떤 사이트인가요?</h2>
       <p class="mb-3 leading-relaxed">
-        BacktestLab은 미국 ETF와 주식을 대상으로, 과거의 실제 시장 데이터를 활용해 투자 전략을 검증할 수 있는
-        무료 백테스트 도구입니다. "만약 몇 년 전 이 종목들에 이런 방식으로 투자했다면 지금 결과가 어땠을까?"라는
-        질문에, 막연한 느낌이 아니라 구체적인 숫자와 그래프로 답을 드리는 것을 목표로 합니다.
+        MegaMega는 주식과 ETF에 투자하는 분들이 자주 마주치는 계산을 손쉽게 해결하도록 만든 무료 투자 계산기
+        모음입니다. 과거 데이터로 전략을 검증하는 <strong>백테스트</strong>부터, 추가 매수 시 평균 단가를 구하는
+        <strong>물타기 계산기</strong>, 해외주식 <strong>양도소득세·배당소득세 계산기</strong>, 목표 금액을 위한
+        <strong>목표자산 역산 계산기</strong>까지 한 곳에서 제공합니다.
       </p>
       <p class="mb-3 leading-relaxed">
-        투자에서 가장 위험한 것은 검증되지 않은 막연한 기대입니다. 실제 돈을 넣기 전에 전략의 기대 수익률과
-        감수해야 할 위험(최대 낙폭, 변동성 등)을 미리 가늠해 본다면, 훨씬 더 차분하고 합리적인 결정을 내릴 수
-        있습니다. BacktestLab은 누구나 어렵지 않게 이런 검증을 할 수 있도록 복잡한 금융 계산을 자동으로 처리하고,
-        결과를 한눈에 이해할 수 있는 차트와 지표로 보여 드립니다.
+        투자에서 가장 위험한 것은 검증되지 않은 막연한 기대입니다. "이 전략으로 과거에 투자했다면 어땠을까?",
+        "추가 매수하면 평단가가 얼마가 될까?", "해외주식을 팔면 세금이 얼마나 나올까?" 같은 질문에 구체적인 숫자로
+        답을 드리는 것을 목표로 합니다. 모든 도구는 회원가입 없이 무료로 사용할 수 있으며, 입력한 정보는 서버로
+        전송되지 않고 브라우저 안에서만 계산됩니다.
       </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-xl font-bold mb-3">사용 방법</h2>
-      <ol class="list-decimal list-inside space-y-2 leading-relaxed">
-        <li>분석하고 싶은 종목(티커)과 비중을 입력합니다. 예: SPY 60%, QQQ 40% (합계 100%)</li>
-        <li>투자 방식을 선택합니다. 목돈을 한 번에 넣는 <strong>거치식</strong>, 매달 나누어 넣는 <strong>적립식</strong>, 둘을 합친 <strong>혼합</strong> 중에서 고르세요.</li>
-        <li>투자 기간(시작·종료)과 배당 재투자, 리밸런싱 같은 고급 옵션을 설정합니다.</li>
-        <li>'백테스트 시작' 버튼을 누르면 수익률·위험·효율성 지표와 자산 성장 차트, 분석 코멘트가 나타납니다.</li>
-      </ol>
+      <h2 class="text-xl font-bold mb-3">제공 도구</h2>
+      <ul class="list-disc list-inside space-y-2 leading-relaxed">
+        <li><a href="backtest.html" class="text-blue-600 underline">ETF 백테스트</a> — 미국 ETF·주식을 과거 데이터로 검증하고 CAGR·MDD·샤프지수를 자동 계산합니다.</li>
+        <li><a href="average-down.html" class="text-blue-600 underline">물타기 계산기</a> — 추가 매수 시 평균 단가를 계산하고 목표 평단가도 역산합니다.</li>
+        <li>양도소득세·배당소득세 계산기, 목표자산 역산 계산기 등도 순차적으로 추가하고 있습니다.</li>
+      </ul>
       <p class="mt-3 leading-relaxed">
-        각 지표가 무슨 뜻인지 궁금하다면 <a href="guide.html" class="text-blue-600 underline">지표 가이드</a>에서
+        투자 지표가 궁금하다면 <a href="guide.html" class="text-blue-600 underline">지표 가이드</a>에서
         CAGR, MDD, 샤프지수 등을 초보자 눈높이로 설명해 두었으니 함께 참고하세요.
       </p>
     </section>
@@ -66,7 +67,7 @@
     <section class="mb-8 bg-amber-50 border border-amber-200 rounded-xl p-5">
       <h2 class="text-xl font-bold mb-3">⚠️ 투자 유의사항</h2>
       <p class="leading-relaxed">
-        BacktestLab이 제공하는 모든 정보는 과거 데이터에 기반한 시뮬레이션이며, 교육 및 참고 목적으로만 제공됩니다.
+        MegaMega이 제공하는 모든 정보는 과거 데이터에 기반한 시뮬레이션이며, 교육 및 참고 목적으로만 제공됩니다.
         <strong>과거의 성과가 미래의 수익을 보장하지 않습니다.</strong> 본 사이트는 특정 종목의 매수나 매도를 권유하지
         않으며, 어떠한 투자 결과에 대해서도 책임지지 않습니다. 모든 투자 판단과 그에 따른 책임은 투자자 본인에게 있습니다.
       </p>
@@ -79,7 +80,7 @@
       <a href="guide.html" class="hover:text-blue-600">지표 가이드</a>
       <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
     </div>
-    © 2026 BacktestLab. All rights reserved.
+    © 2026 MegaMega. All rights reserved.
   </footer>
 </body>
 </html>
