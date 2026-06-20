@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPY vs QQQ 최근 10년 백테스트 비교 - 수익률·MDD·샤프지수 | MegaMega</title>
+  <meta name="description" content="S&P500(SPY)과 나스닥100(QQQ)에 최근 10년간 투자했다면 결과가 어땠을까? 실제 데이터로 CAGR, 최대낙폭(MDD), 샤프지수를 비교하고 어떤 투자자에게 맞는지 분석합니다." />
+  <meta name="keywords" content="SPY QQQ 비교, SPY vs QQQ, 나스닥100 S&P500 비교, QQQ 수익률, SPY 백테스트, 미국 ETF 비교" />
+  <meta property="og:title" content="SPY vs QQQ 최근 10년 백테스트 비교 분석" />
+  <meta property="og:description" content="실제 데이터로 SPY와 QQQ의 수익률·위험을 비교했습니다." />
+  <meta property="og:type" content="article" />
+  <link rel="canonical" href="https://megamega.kr/article-spy-vs-qqq.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"SPY vs QQQ 최근 10년 백테스트 비교 분석","datePublished":"2026-06-21","author":{"@type":"Organization","name":"MegaMega"},"publisher":{"@type":"Organization","name":"MegaMega"},"description":"S&P500(SPY)과 나스닥100(QQQ)의 최근 10년 수익률과 위험을 실제 데이터로 비교 분석합니다."}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-bold text-lg text-blue-700">📊 MegaMega</a>
+      <nav class="flex gap-4 text-sm text-slate-600">
+        <a href="index.html" class="hover:text-blue-700">홈</a>
+        <a href="guide.html" class="hover:text-blue-700">가이드</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <p class="text-sm text-slate-400 mb-2"><a href="blog.html" class="hover:text-blue-600">← 블로그 목록</a></p>
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">SPY vs QQQ, 최근 10년 백테스트 비교 분석</h1>
+    <p class="text-sm text-slate-400 mb-6">2026년 6월 기준 · 최근 10년 데이터</p>
+
+    <article class="bg-white rounded-xl border border-slate-200 p-6 space-y-6 leading-relaxed text-[15px]">
+      <p class="text-slate-700">
+        미국 ETF 투자를 시작할 때 가장 많이 비교되는 두 종목이 바로 <strong>SPY</strong>(S&P500 추종)와
+        <strong>QQQ</strong>(나스닥100 추종)입니다. 둘 다 미국 대표 우량주에 분산 투자하지만 성격은 꽤 다릅니다.
+        이 글에서는 실제 데이터를 백테스트해 최근 10년간 두 ETF가 어떤 성과를 냈는지, 그리고 어떤 투자자에게
+        어울리는지 숫자로 비교해 보겠습니다.
+      </p>
+
+      <div>
+        <h2 class="text-xl font-bold mb-2">SPY와 QQQ는 무엇이 다른가?</h2>
+        <p class="text-slate-600">
+          <strong>SPY</strong>는 미국 대형주 500개로 구성된 S&P500 지수를 추종합니다. 기술주부터 금융·헬스케어·소비재까지
+          폭넓게 분산되어 "미국 시장 전체"에 투자하는 효과가 있습니다. 반면 <strong>QQQ</strong>는 나스닥 시장의 비금융
+          대형주 100개를 담아 <strong>기술주 비중이 매우 높습니다.</strong> 애플·마이크로소프트·엔비디아 같은 빅테크의
+          영향을 크게 받기 때문에, 기술주가 강할 때는 더 많이 오르고 약할 때는 더 많이 떨어지는 경향이 있습니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-2">최근 10년 백테스트 결과</h2>
+        <p class="text-slate-600 mb-3">
+          각 ETF에 1만 달러를 거치식으로 투자하고 배당을 재투자(DRIP)했다고 가정한 결과입니다.
+          (MegaMega <a href="backtest.html" class="text-blue-600 underline">백테스트 도구</a>로 직접 계산한 실제 수치)
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="border-b-2 border-slate-200 text-left">
+                <th class="py-2">지표</th>
+                <th class="py-2 text-blue-700">SPY (S&P500)</th>
+                <th class="py-2 text-amber-600">QQQ (나스닥100)</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-b border-slate-100"><td class="py-2">총 수익률</td><td>+469.2%</td><td>+690.1%</td></tr>
+              <tr class="border-b border-slate-100"><td class="py-2">연평균 수익률(CAGR)</td><td>19.07%</td><td>23.05%</td></tr>
+              <tr class="border-b border-slate-100"><td class="py-2">최대 낙폭(MDD)</td><td>-22.1%</td><td>-31.9%</td></tr>
+              <tr class="border-b border-slate-100"><td class="py-2">연 변동성</td><td>15.6%</td><td>18.9%</td></tr>
+              <tr class="border-b border-slate-100"><td class="py-2">샤프지수</td><td>0.97</td><td>1.01</td></tr>
+              <tr><td class="py-2">$10,000 → 최종</td><td>$56,921</td><td>$79,014</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">※ 최근 10년 기준이며, 분석 시점에 따라 수치는 달라질 수 있습니다.</p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-2">결과 해석</h2>
+        <p class="text-slate-600 mb-3">
+          최근 10년은 빅테크가 시장을 주도한 시기였기에 <strong>QQQ가 수익률에서 SPY를 크게 앞섰습니다.</strong>
+          1만 달러가 SPY에서는 약 5.7만 달러, QQQ에서는 약 7.9만 달러가 되어 수익 차이가 상당합니다.
+        </p>
+        <p class="text-slate-600 mb-3">
+          하지만 <strong>그만큼 위험도 컸습니다.</strong> QQQ의 최대 낙폭(MDD)은 -31.9%로 SPY(-22.1%)보다 깊었고,
+          변동성도 더 높았습니다. 즉, QQQ는 더 높은 수익을 줬지만 그 과정에서 더 큰 하락을 견뎌야 했다는 뜻입니다.
+        </p>
+        <p class="text-slate-600">
+          흥미로운 점은 <strong>샤프지수(위험 대비 효율)는 0.97 vs 1.01로 거의 비슷</strong>하다는 것입니다.
+          QQQ가 더 많이 올랐지만 위험도 그만큼 컸기 때문에, "감수한 위험 대비 효율"로 보면 두 ETF가 비등했습니다.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold mb-2">그래서 어떤 ETF를 골라야 할까?</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-1">
+          <li><strong>SPY가 어울리는 투자자</strong> — 변동성을 줄이고 미국 시장 전체에 안정적으로 분산 투자하고 싶은 분, 하락장에서 마음 편히 버티고 싶은 분.</li>
+          <li><strong>QQQ가 어울리는 투자자</strong> — 더 높은 수익을 위해 큰 하락도 감내할 수 있는 분, 기술주 성장에 베팅하고 싶은 장기 투자자.</li>
+          <li><strong>둘 다 담는 것도 방법</strong> — 예를 들어 SPY 60% + QQQ 40%처럼 섞으면 수익과 안정성의 균형을 맞출 수 있습니다.</li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 text-center">
+        <p class="font-semibold mb-2">내 비중으로 직접 비교해 보세요</p>
+        <p class="text-sm text-slate-600 mb-3">SPY와 QQQ 비중을 바꿔가며 백테스트하면 나에게 맞는 조합을 찾을 수 있어요.</p>
+        <a href="backtest.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-lg">백테스트 해보기 →</a>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        ⚠️ 본 글은 과거 데이터 기반 분석으로 정보 제공 목적이며 투자 권유가 아닙니다. 과거의 성과가 미래의 수익을 보장하지 않습니다.
+      </p>
+    </article>
+  </main>
+
+  <footer class="border-t border-slate-200 mt-10">
+    <div class="bg-slate-100 py-8">
+      <div class="max-w-5xl mx-auto px-4">
+        <p class="text-center text-sm font-semibold text-slate-700 mb-4">전체 계산기</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          <a href="backtest.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">📈</span>백테스트</a>
+          <a href="retirement.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">🏖️</span>은퇴 계산기</a>
+          <a href="average-down.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">💧</span>물타기</a>
+          <a href="tax-transfer.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">🧾</span>양도소득세</a>
+          <a href="tax-dividend.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">💵</span>배당소득세</a>
+          <a href="target-asset.html" class="bg-white rounded-lg border border-slate-200 py-3 text-center text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition"><span class="block text-xl mb-1">🎯</span>목표자산</a>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 text-center text-xs text-slate-400">
+      <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-3">
+        <a href="about.html" class="hover:text-blue-600">소개</a>
+        <a href="contact.html" class="hover:text-blue-600">문의</a>
+        <a href="disclaimer.html" class="hover:text-blue-600">면책조항</a>
+        <a href="privacy.html" class="hover:text-blue-600">개인정보처리방침</a>
+        <a href="terms.html" class="hover:text-blue-600">이용약관</a>
+      </div>
+      © 2026 MegaMega. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

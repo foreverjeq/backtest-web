@@ -12,6 +12,7 @@
   <link rel="canonical" href="https://megamega.kr/" />
   <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"MegaMega","url":"https://megamega.kr/"},{"@type":"WebSite","name":"MegaMega","url":"https://megamega.kr/","description":"주식·ETF 투자자를 위한 무료 계산기 모음"}]}</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -37,8 +38,9 @@
       </p>
     </section>
 
-    <!-- 도구 카드 -->
-    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+    <!-- 계산기 -->
+    <h2 class="text-xl font-bold mb-4">🧮 투자 계산기</h2>
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
 
       <a href="backtest.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
         <div class="text-3xl mb-3">📈</div>
@@ -82,10 +84,21 @@
         <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">바로 사용 →</span>
       </a>
 
+    </section>
+
+    <!-- 투자 정보 -->
+    <h2 class="text-xl font-bold mb-4">📚 투자 정보</h2>
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
       <a href="guide.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
         <div class="text-3xl mb-3">📚</div>
         <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">투자 지표 가이드</h2>
         <p class="text-sm text-slate-500">CAGR, MDD, 샤프지수 등 투자 지표를 초보자도 이해하기 쉽게 설명.</p>
+        <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">읽어보기 →</span>
+      </a>
+      <a href="blog.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
+        <div class="text-3xl mb-3">📰</div>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">투자 정보 블로그</h2>
+        <p class="text-sm text-slate-500">실제 데이터로 분석한 ETF 비교·투자 전략 등 알찬 정보 글 모음.</p>
         <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">읽어보기 →</span>
       </a>
     </section>
