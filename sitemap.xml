@@ -51,6 +51,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://megamega.kr/article-lumpsum-vs-dca.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://megamega.kr/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
