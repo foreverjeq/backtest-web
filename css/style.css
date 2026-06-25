@@ -55,6 +55,13 @@ input:focus, select:focus {
 /* 티커 입력 대문자 */
 .ticker-input { text-transform: uppercase; }
 
+/* FAQ 아코디언: 브라우저 기본 삼각형(▶) 제거 */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { content: ""; }
+details > summary { transition: background-color 0.15s ease; }
+details > summary:hover { background-color: #f8fafc; }
+details[open] > summary { color: #2563eb; }
+
 /* 스크롤바 살짝 슬림하게 (데스크톱) */
 @media (min-width: 768px) {
   ::-webkit-scrollbar { width: 10px; height: 10px; }

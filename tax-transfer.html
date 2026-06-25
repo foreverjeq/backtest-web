@@ -12,6 +12,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"MegaMega","url":"https://megamega.kr/"},{"@type":"WebSite","name":"MegaMega","url":"https://megamega.kr/","description":"주식·ETF 투자자를 위한 무료 계산기 모음"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"해외주식 양도소득세는 언제 신고하나요?","acceptedAnswer":{"@type":"Answer","text":"양도일(매도일)이 속한 해의 다음 해 5월 1일부터 5월 31일까지 양도소득세 확정신고와 납부를 합니다. 예를 들어 2026년에 매도했다면 2027년 5월에 신고합니다."}},{"@type":"Question","name":"연 250만원 기본공제는 어떻게 적용되나요?","acceptedAnswer":{"@type":"Answer","text":"1년 동안 발생한 모든 해외주식 양도차익을 합산한 뒤 250만원을 한 번 공제합니다. 종목마다 따로 250만원씩 빼 주는 것이 아니라 연 1회, 합산 이익에서 공제됩니다."}},{"@type":"Question","name":"손실만 봤어도 신고해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"납부할 세금은 없지만, 같은 해 다른 해외주식 이익과 손익통산을 받으려면 신고하는 것이 유리합니다. 손실은 같은 연도 내 이익과만 통산되며 다음 해로 이월되지 않습니다."}},{"@type":"Question","name":"환율은 세금에 어떻게 영향을 주나요?","acceptedAnswer":{"@type":"Answer","text":"양도차익은 매수·매도 시점의 환율로 각각 원화 환산해 계산합니다. 따라서 주가가 변하지 않아도 매도 시점 환율이 매수 때보다 오르면 환차익이 생겨 세금이 늘어날 수 있습니다."}},{"@type":"Question","name":"국내주식도 양도세를 내나요?","acceptedAnswer":{"@type":"Answer","text":"일반 투자자는 국내 상장주식 매매차익에 양도세가 없습니다(대주주 제외). 반면 해외주식은 금액과 무관하게 양도차익에 22% 세율로 과세된다는 점이 큰 차이입니다."}},{"@type":"Question","name":"미국 ETF도 양도세 대상인가요?","acceptedAnswer":{"@type":"Answer","text":"미국 증시에 상장된 ETF(예: SPY, QQQ, SCHD)는 해외주식과 동일하게 양도소득세 대상입니다. 반면 국내 상장된 해외 ETF는 배당소득세(15.4%)로 과세되어 세금 체계가 다릅니다."}}]}</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2530254920376000" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -116,6 +117,55 @@
         달라질 수 있습니다. 정확한 신고는 세무 전문가나 국세청 안내를 따르세요.
       </p>
     </article>
+
+    <!-- FAQ -->
+    <section class="bg-white rounded-xl border border-slate-200 p-6 mt-6">
+      <h2 class="text-lg font-bold mb-4">자주 묻는 질문</h2>
+      <div class="space-y-2">
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>해외주식 양도소득세는 언제 신고하나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">양도일(매도일)이 속한 해의 다음 해 5월 1일부터 5월 31일까지 양도소득세 확정신고와 납부를 합니다. 예를 들어 2026년에 매도했다면 2027년 5월에 신고합니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>연 250만원 기본공제는 어떻게 적용되나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">1년 동안 발생한 모든 해외주식 양도차익을 합산한 뒤 250만원을 한 번 공제합니다. 종목마다 따로 250만원씩 빼 주는 것이 아니라 연 1회, 합산 이익에서 공제됩니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>손실만 봤어도 신고해야 하나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">납부할 세금은 없지만, 같은 해 다른 해외주식 이익과 손익통산을 받으려면 신고하는 것이 유리합니다. 손실은 같은 연도 내 이익과만 통산되며 다음 해로 이월되지 않습니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>환율은 세금에 어떻게 영향을 주나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">양도차익은 매수·매도 시점의 환율로 각각 원화 환산해 계산합니다. 따라서 주가가 변하지 않아도 매도 시점 환율이 매수 때보다 오르면 환차익이 생겨 세금이 늘어날 수 있습니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>국내주식도 양도세를 내나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">일반 투자자는 국내 상장주식 매매차익에 양도세가 없습니다(대주주 제외). 반면 해외주식은 금액과 무관하게 양도차익에 22% 세율로 과세된다는 점이 큰 차이입니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>미국 ETF도 양도세 대상인가요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">미국 증시에 상장된 ETF(예: SPY, QQQ, SCHD)는 해외주식과 동일하게 양도소득세 대상입니다. 반면 국내 상장된 해외 ETF는 배당소득세(15.4%)로 과세되어 세금 체계가 다릅니다.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer class="border-t border-slate-200 mt-10">

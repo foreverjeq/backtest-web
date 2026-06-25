@@ -15,6 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"MegaMega","url":"https://megamega.kr/"},{"@type":"WebSite","name":"MegaMega","url":"https://megamega.kr/","description":"주식·ETF 투자자를 위한 무료 계산기 모음"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"백테스트란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"백테스트는 특정 투자 전략이나 종목을 과거 데이터에 적용해, 만약 그때 투자했다면 결과가 어땠을지 시뮬레이션하는 것입니다. 연평균 수익률(CAGR), 최대 낙폭(MDD) 등을 미리 확인해 전략을 점검할 수 있습니다."}},{"@type":"Question","name":"어떤 종목을 백테스트할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"SPY, QQQ, SCHD 같은 미국 ETF와 애플(AAPL), 마이크로소프트(MSFT) 등 미국 개별 주식 대부분을 티커로 입력해 백테스트할 수 있습니다. 여러 종목을 비중을 나눠 포트폴리오로 구성하는 것도 가능합니다."}},{"@type":"Question","name":"데이터는 어디서 가져오나요?","acceptedAnswer":{"@type":"Answer","text":"Yahoo Finance의 공개 시세 데이터를 사용합니다. 월별 종가와 배당을 기반으로 계산하며, 배당은 재투자한 것으로 가정해 총수익(Total Return) 기준으로 수익률을 산출합니다."}},{"@type":"Question","name":"적립식(매달 투자)도 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 일시금 투자뿐 아니라 매달 일정액을 추가로 넣는 적립식(DCA)도 시뮬레이션할 수 있습니다. 이때 수익률은 납입 시점을 보정한 시간가중수익률(TWR)로 정확히 계산됩니다."}},{"@type":"Question","name":"과거 수익률로 미래를 알 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 백테스트는 과거에 어땠는지를 보여 줄 뿐, 미래 수익을 보장하지 않습니다. 변동성·최대 낙폭 같은 위험 지표를 함께 살펴 전략의 안정성을 가늠하는 참고 도구로 활용하세요."}}]}</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2530254920376000" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -179,6 +180,48 @@
         </div>
       </section>
     </div>
+
+    <!-- FAQ -->
+    <section class="bg-white rounded-xl border border-slate-200 p-6 mt-8">
+      <h2 class="text-lg font-bold mb-4">자주 묻는 질문</h2>
+      <div class="space-y-2">
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>백테스트란 무엇인가요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">백테스트는 특정 투자 전략이나 종목을 과거 데이터에 적용해, 만약 그때 투자했다면 결과가 어땠을지 시뮬레이션하는 것입니다. 연평균 수익률(CAGR), 최대 낙폭(MDD) 등을 미리 확인해 전략을 점검할 수 있습니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>어떤 종목을 백테스트할 수 있나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">SPY, QQQ, SCHD 같은 미국 ETF와 애플(AAPL), 마이크로소프트(MSFT) 등 미국 개별 주식 대부분을 티커로 입력해 백테스트할 수 있습니다. 여러 종목을 비중을 나눠 포트폴리오로 구성하는 것도 가능합니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>데이터는 어디서 가져오나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">Yahoo Finance의 공개 시세 데이터를 사용합니다. 월별 종가와 배당을 기반으로 계산하며, 배당은 재투자한 것으로 가정해 총수익(Total Return) 기준으로 수익률을 산출합니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>적립식(매달 투자)도 계산되나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">네. 일시금 투자뿐 아니라 매달 일정액을 추가로 넣는 적립식(DCA)도 시뮬레이션할 수 있습니다. 이때 수익률은 납입 시점을 보정한 시간가중수익률(TWR)로 정확히 계산됩니다.</p>
+        </details>
+        <details class="group border border-slate-200 rounded-lg">
+          <summary class="flex justify-between items-center cursor-pointer px-4 py-3 text-sm font-semibold text-slate-700 list-none">
+            <span>과거 수익률로 미래를 알 수 있나요?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition flex-shrink-0 ml-2">▾</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm text-slate-600 leading-relaxed">아닙니다. 백테스트는 과거에 어땠는지를 보여 줄 뿐, 미래 수익을 보장하지 않습니다. 변동성·최대 낙폭 같은 위험 지표를 함께 살펴 전략의 안정성을 가늠하는 참고 도구로 활용하세요.</p>
+        </details>
+      </div>
+    </section>
 
     <!-- 면책 -->
     <p class="text-xs text-slate-400 mt-8 text-center">
