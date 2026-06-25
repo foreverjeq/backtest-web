@@ -46,14 +46,14 @@ async function loadExchangeRate() {
 function addTickerRow(ticker, weight) {
   tickerCount++;
   const row = document.createElement('div');
-  row.className = 'flex gap-2 items-center ticker-row';
+  row.className = 'flex gap-1.5 items-center ticker-row';
   row.innerHTML = `
     <input type="text" value="${ticker}" placeholder="티커"
-      class="ticker-input flex-1 border border-slate-300 rounded-lg px-2 py-1.5 text-sm uppercase" />
+      class="ticker-input flex-1 min-w-0 border border-slate-300 rounded-lg px-2 py-1.5 text-sm uppercase" />
     <input type="number" value="${weight}" min="0" max="100"
-      class="weight-input w-16 border border-slate-300 rounded-lg px-2 py-1.5 text-sm" />
-    <span class="text-sm text-slate-400">%</span>
-    <button type="button" class="del-btn text-slate-400 hover:text-red-500 px-1">✕</button>
+      class="weight-input w-14 shrink-0 border border-slate-300 rounded-lg px-2 py-1.5 text-sm" />
+    <span class="text-sm text-slate-400 shrink-0">%</span>
+    <button type="button" class="del-btn shrink-0 text-slate-400 hover:text-red-500 px-1" aria-label="종목 삭제">✕</button>
   `;
   document.getElementById('tickerList').appendChild(row);
 
