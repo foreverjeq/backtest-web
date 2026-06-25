@@ -34,31 +34,30 @@
   <main class="max-w-6xl mx-auto px-4 py-8">
 
     <!-- 히어로 -->
-    <section class="relative text-center mb-14 mt-2 rounded-3xl bg-gradient-to-b from-blue-50 to-slate-50 border border-slate-200/70 px-6 py-14 overflow-hidden">
+    <section class="relative text-center mb-14 mt-2 rounded-3xl bg-gradient-to-b from-blue-50 to-slate-50 border border-slate-200/70 px-6 py-16 overflow-hidden">
       <div class="absolute inset-0 -z-10 opacity-60" style="background:radial-gradient(60% 60% at 50% 0%, rgba(37,99,235,0.10), transparent 70%)"></div>
-      <span class="inline-block mb-4 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">무료 · 가입 없음 · 광고 없는 깔끔한 계산</span>
-      <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-        투자 판단에 필요한 모든 계산,<br class="hidden sm:block" />
+      <span class="inline-block mb-5 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">주식·ETF 투자자를 위한 무료 계산 도구</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold mb-5 leading-snug">
+        투자에 필요한 모든 계산을<br class="hidden sm:block" />
         <span class="text-blue-600">한 곳에서</span>
       </h1>
-      <p class="text-slate-600 max-w-2xl mx-auto md:text-lg">
-        백테스트부터 세금·평단가·목표자산·은퇴 계산까지. 주식·ETF 투자자에게 꼭 필요한 도구를
-        무료로 바로 사용하세요.
+      <p class="text-slate-600 max-w-xl mx-auto md:text-lg leading-relaxed">
+        백테스트·세금·평단가·복리·목표자산·은퇴까지,<br class="hidden sm:block" />
+        투자에 꼭 필요한 계산을 무료로 바로 해결하세요.
       </p>
-      <div class="mt-7 flex flex-wrap justify-center gap-2">
-        <a href="backtest.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-sm">📈 백테스트 시작</a>
-        <a href="retirement.html" class="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl">🏖️ 은퇴 계산</a>
-      </div>
     </section>
 
     <!-- 계산기 -->
-    <h2 class="text-xl font-bold mb-4">🧮 투자 계산기</h2>
-    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold">투자 계산 도구</h2>
+      <p class="text-sm text-slate-500 mt-1">자주 쓰는 투자 계산을 정확하게, 한 번에.</p>
+    </div>
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
 
       <a href="backtest.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
         <div class="text-3xl mb-3">📈</div>
-        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">ETF 백테스트</h2>
-        <p class="text-sm text-slate-500">SPY·QQQ 등 미국 ETF를 과거 데이터로 검증. CAGR·MDD·샤프지수 자동 계산.</p>
+        <h2 class="font-bold text-lg mb-1 group-hover:text-blue-700">주식·ETF 백테스트</h2>
+        <p class="text-sm text-slate-500">미국 주식과 ETF를 과거 데이터로 검증. 연평균 수익률(CAGR)과 최대 낙폭(MDD)을 자동 분석.</p>
         <span class="inline-block mt-3 text-xs text-blue-600 font-semibold">바로 사용 →</span>
       </a>
 
@@ -107,7 +106,10 @@
     </section>
 
     <!-- 투자 정보 -->
-    <h2 class="text-xl font-bold mb-4">📚 투자 정보</h2>
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold">투자 가이드 &amp; 인사이트</h2>
+      <p class="text-sm text-slate-500 mt-1">투자 지표와 실전 분석을 초보자도 쉽게.</p>
+    </div>
     <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
       <a href="guide.html" class="group bg-white rounded-2xl border border-slate-200 p-6 hover:border-blue-400 hover:shadow-md transition">
         <div class="text-3xl mb-3">📚</div>
@@ -125,15 +127,21 @@
 
     <!-- 사이트 소개 -->
     <section class="bg-white rounded-2xl border border-slate-200 p-8 mb-10">
-      <h2 class="text-xl font-bold mb-3">MegaMega는 어떤 곳인가요?</h2>
-      <p class="text-slate-600 leading-relaxed mb-3">
-        MegaMega는 주식과 ETF에 투자하는 분들이 자주 마주치는 계산을 손쉽게 해결하도록 만든
-        무료 도구 모음입니다. "이 전략으로 과거에 투자했다면 결과가 어땠을까?", "추가 매수하면 평단가가
-        얼마가 될까?", "해외주식을 팔면 세금이 얼마나 나올까?" 같은 질문에 빠르고 정확한 답을 드립니다.
+      <h2 class="text-xl font-bold mb-4">MegaMega는 어떤 곳인가요?</h2>
+      <p class="text-slate-600 leading-relaxed mb-4">
+        MegaMega는 주식과 ETF에 투자할 때 마주치는 계산을 한 곳에서 해결하는 <strong>무료 투자 계산기 모음</strong>입니다.
+        복잡한 수식이나 엑셀 없이, 숫자만 입력하면 결과를 바로 확인할 수 있습니다.
       </p>
+      <p class="text-slate-600 leading-relaxed mb-3">예를 들어 이런 고민에 답을 드립니다.</p>
+      <ul class="text-slate-600 leading-relaxed mb-4 space-y-2 list-disc list-inside marker:text-blue-400">
+        <li>이 전략으로 과거에 투자했다면 결과가 어땠을까? → <a href="backtest.html" class="text-blue-600 hover:underline">주식 백테스트</a></li>
+        <li>추가로 매수하면 평단가가 얼마가 될까? → <a href="average-down.html" class="text-blue-600 hover:underline">물타기 계산기</a></li>
+        <li>해외주식을 팔면 세금이 얼마나 나올까? → <a href="tax-transfer.html" class="text-blue-600 hover:underline">양도소득세 계산기</a></li>
+        <li>매달 얼마를 모으면 목표 금액에 도달할까? → <a href="target-asset.html" class="text-blue-600 hover:underline">목표자산 계산기</a></li>
+      </ul>
       <p class="text-slate-600 leading-relaxed">
-        모든 도구는 회원가입 없이 무료로 사용할 수 있으며, 입력한 정보는 서버로 전송되지 않고
-        브라우저 안에서만 계산됩니다. 투자 판단에 필요한 도구를 한 곳에서 편리하게 이용하세요.
+        모든 도구는 회원가입 없이 무료이며, 입력한 정보는 서버로 전송되지 않고 브라우저 안에서만 계산되어 안전합니다.
+        백테스트·복리·평단가·양도소득세·배당소득세·목표자산 계산까지, 투자 판단에 필요한 도구를 한 곳에서 편리하게 이용하세요.
       </p>
     </section>
   </main>
