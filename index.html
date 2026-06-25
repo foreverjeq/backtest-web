@@ -33,12 +33,21 @@
   <main class="max-w-6xl mx-auto px-4 py-8">
 
     <!-- 히어로 -->
-    <section class="text-center mb-12 mt-4">
-      <h1 class="text-3xl md:text-4xl font-bold mb-3">주식·ETF 투자자를 위한 계산기 모음</h1>
-      <p class="text-slate-600 max-w-2xl mx-auto">
-        백테스트부터 세금·평단가·목표자산 계산까지. 투자 판단에 꼭 필요한 도구를
-        무료로, 가입 없이 바로 사용하세요. 모든 계산은 브라우저에서 즉시 처리됩니다.
+    <section class="relative text-center mb-14 mt-2 rounded-3xl bg-gradient-to-b from-blue-50 to-slate-50 border border-slate-200/70 px-6 py-14 overflow-hidden">
+      <div class="absolute inset-0 -z-10 opacity-60" style="background:radial-gradient(60% 60% at 50% 0%, rgba(37,99,235,0.10), transparent 70%)"></div>
+      <span class="inline-block mb-4 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">무료 · 가입 없음 · 광고 없는 깔끔한 계산</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+        투자 판단에 필요한 모든 계산,<br class="hidden sm:block" />
+        <span class="text-blue-600">한 곳에서</span>
+      </h1>
+      <p class="text-slate-600 max-w-2xl mx-auto md:text-lg">
+        백테스트부터 세금·평단가·목표자산·은퇴 계산까지. 주식·ETF 투자자에게 꼭 필요한 도구를
+        무료로 바로 사용하세요.
       </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-2">
+        <a href="backtest.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-sm">📈 백테스트 시작</a>
+        <a href="retirement.html" class="bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl">🏖️ 은퇴 계산</a>
+      </div>
     </section>
 
     <!-- 계산기 -->
