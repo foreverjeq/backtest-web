@@ -17,7 +17,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"MegaMega","url":"https://megamega.kr/"},{"@type":"WebSite","name":"MegaMega","url":"https://megamega.kr/","description":"주식·ETF 투자자를 위한 무료 계산기 모음"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"백테스트란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"백테스트는 특정 투자 전략이나 종목을 과거 데이터에 적용해, 만약 그때 투자했다면 결과가 어땠을지 시뮬레이션하는 것입니다. 연평균 수익률(CAGR), 최대 낙폭(MDD) 등을 미리 확인해 전략을 점검할 수 있습니다."}},{"@type":"Question","name":"어떤 종목을 백테스트할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"SPY, QQQ, SCHD 같은 미국 ETF와 애플(AAPL), 마이크로소프트(MSFT) 등 미국 개별 주식 대부분을 티커로 입력해 백테스트할 수 있습니다. 여러 종목을 비중을 나눠 포트폴리오로 구성하는 것도 가능합니다."}},{"@type":"Question","name":"데이터는 어디서 가져오나요?","acceptedAnswer":{"@type":"Answer","text":"Yahoo Finance의 공개 시세 데이터를 사용합니다. 월별 종가와 배당을 기반으로 계산하며, 배당은 재투자한 것으로 가정해 총수익(Total Return) 기준으로 수익률을 산출합니다."}},{"@type":"Question","name":"적립식(매달 투자)도 계산되나요?","acceptedAnswer":{"@type":"Answer","text":"네. 일시금 투자뿐 아니라 매달 일정액을 추가로 넣는 적립식(DCA)도 시뮬레이션할 수 있습니다. 이때 수익률은 납입 시점을 보정한 시간가중수익률(TWR)로 정확히 계산됩니다."}},{"@type":"Question","name":"과거 수익률로 미래를 알 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 백테스트는 과거에 어땠는지를 보여 줄 뿐, 미래 수익을 보장하지 않습니다. 변동성·최대 낙폭 같은 위험 지표를 함께 살펴 전략의 안정성을 가늠하는 참고 도구로 활용하세요."}}]}</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2530254920376000" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -55,7 +55,7 @@
     <div class="grid lg:grid-cols-3 gap-6">
 
       <!-- ============ 입력 영역 ============ -->
-      <section class="lg:col-span-1 bg-white rounded-xl border border-slate-200 p-5 h-fit">
+      <section class="lg:col-span-1 min-w-0 bg-white rounded-xl border border-slate-200 p-5 h-fit">
         <h2 class="font-bold text-lg mb-4">⚙️ 설정</h2>
 
         <!-- 종목 입력 -->
@@ -134,7 +134,7 @@
       </section>
 
       <!-- ============ 결과 영역 ============ -->
-      <section class="lg:col-span-2">
+      <section class="lg:col-span-2 min-w-0">
 
         <!-- 로딩 -->
         <div id="loading" class="hidden bg-white rounded-xl border border-slate-200 p-10 text-center">

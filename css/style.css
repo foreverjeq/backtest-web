@@ -26,6 +26,12 @@ body {
 /* 이미지·차트·표·동영상이 화면 밖으로 넘치지 않도록 */
 img, svg, canvas, video, table { max-width: 100%; }
 
+/* 폼 입력칸이 좁은 화면에서 줄어들 수 있도록 (날짜 선택 등 폼 요소가 화면 밖으로 밀어내는 문제 방지) */
+input, select, textarea { min-width: 0; max-width: 100%; }
+
+/* 그리드/플렉스 안의 칸이 내용 때문에 안 줄어드는 문제 방지 */
+.min-w-0 { min-width: 0; }
+
 /* 제목은 자간을 조금 더 좁혀 단단한 인상 */
 h1, h2, h3 { letter-spacing: -0.02em; }
 
