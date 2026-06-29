@@ -84,21 +84,23 @@ function parseYahooResponse(json, ticker) {
   }
 
   const timestamps = result.timestamp;
-  // 수정종가가 없으면 일반 종가로 대체
-  const adjclose =
-    result.indicators?.adjclose?.[0]?.adjclose ||
-    result.indicators?.quote?.[0]?.close;
+  // 주식분할(split)만 반영되고 배당은 반영되지 않은 일반 종가를 사용한다.
+  // 배당은 backtest.js에서 직접 재투자/현금 처리하므로, 배당까지 반영된
+  // 수정종가(adjclose)를 쓰면 배당이 이중으로 계산되어 수익률이 부풀려진다.
+  const closePrices =
+    result.indicators?.quote?.[0]?.close ||
+    result.indicators?.adjclose?.[0]?.adjclose;
 
-  if (!adjclose) {
+  if (!closePrices) {
     throw new Error(`'${ticker}' 가격 데이터를 찾을 수 없습니다.`);
   }
 
   const dates = [];
   const prices = [];
   for (let i = 0; i < timestamps.length; i++) {
-    if (adjclose[i] == null) continue; // 빈 값 건너뛰기
+    if (closePrices[i] == null) continue; // 빈 값 건너뛰기
     dates.push(new Date(timestamps[i] * 1000));
-    prices.push(adjclose[i]);
+    prices.push(closePrices[i]);
   }
 
   if (prices.length < 2) {

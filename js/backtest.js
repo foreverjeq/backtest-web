@@ -84,8 +84,10 @@ function runBacktest(cfg) {
     cashflows.push(cfThisMonth);
 
     // 3) 배당 처리 (이번 달에 지급된 배당)
-    const monthStart = i > 0 ? dates[i - 1].getTime() / 1000 : 0;
-    const monthEnd = dates[i].getTime() / 1000 + 86400 * 31;
+    // 기간을 (이전 달, 이번 달]로 잡아 이웃 달끼리 겹치지 않게 한다.
+    // (예전엔 +31일 버퍼로 기간이 겹쳐 배당이 두 달에 중복 집계되는 버그가 있었음)
+    const monthStart = i > 0 ? dates[i - 1].getTime() / 1000 : dates[0].getTime() / 1000 - 86400 * 31;
+    const monthEnd = dates[i].getTime() / 1000;
     let monthDiv = 0;
     tickers.forEach((t) => {
       const divs = series[t].dividends;
